@@ -1,0 +1,490 @@
+% vim: fdm=marker fmr=<<<,>>> fml=1 cole=0
+% Preamble % <<<
+% \documentclass[10pt,twocolumn,nobalancelastpage,aps,pra,superscriptaddress,nofootinbib,longbibliography%,linenumbers
+% ]{revtex4-2}
+\documentclass[fontsize=9pt]{scrartcl}
+
+% \usepackage{libertinus}
+\usepackage[a5paper,margin=10mm]{geometry}
+
+\usepackage[mainfont]{ysabeau}
+\usepackage[small,euler-digits,euler-hat-accent]{eulervm}
+\renewcommand{\hbar}{\hslash}
+\usepackage{xfrac}
+
+\input{/home/omn/works/styles/latex/revtex4-1.tex}
+\input{/home/omn/works/tmp/newcommands.tex}
+
+% \usepackage{autonum}
+
+
+\begin{document}
+
+% >>>
+
+% TITLE <<<
+  {
+    \centering
+    \textbf{\LARGE Exam Questions\\
+      Quantum Statistical Optics
+    }
+    \par
+  }
+
+  \bigskip
+
+% >>>
+
+
+  % \begin{enumerate}
+  %   \item Coherent, thermal and non-classical states of light, their properties and mathematical representation
+  %   \item Isolated and open quantum dynamics of quantum states of light and atoms, description and basic models
+  % \end{enumerate}
+
+\section{Coherent, thermal and non-classical states of light, their properties and mathematical representation}% <<<
+
+These states are quantum states of a harmonic oscillator (HO; see~\cref{sec:harmonic_oscillator} for more).
+
+\subsection{Coherent states: Photon number distribution/ discrete variables (DV)} % <<<
+\label{sec:photon_number_distribution}
+
+Coherent states can be defined as eigenstates of the \emph{annihilation operator} $\hat a$ of the HO:
+\begin{equation}
+  \label{eq:coh:ket:def}
+  \hat a \ket{ \alpha } = \alpha \ket {\alpha },
+\end{equation}
+where $\ket{\alpha}$ is the notation for the coherent state that uses a complex number $\alpha$.
+
+We can write the coherent state in the basis of the energy levels of the HO (Fock states):
+\begin{equation}
+  \ket{ \alpha } = \exp\left[- \frac{\abs{ \alpha }^2}{2} \right]
+  \sum_{k=0}^\infty \frac{\alpha^k}{\sqrt{ k!}} \ket{k}.
+\end{equation}
+The probability to obtain $m$ photons in a coherent state $\alpha$ then equals
+\begin{equation}
+  p_m (\alpha) = \abs{ \braket{ m }{ \alpha }}^2
+  = \ee^{ - \abs{ \alpha }^2 }
+  \frac{ \abs{\alpha}^{2m} }{ m! }
+  =
+  \ee^{ - \ev{n} } \frac{ \ev{n }^m }{ m! },
+\end{equation}
+where we denoted by $\ev{n}$ the mean number of phonons in this coherent state.
+Example photon number distributions can be seen in~\cref{fig:probs_coh_therm}~(left).
+It can be proven (we can compute it) that the mean number of photons and the variance of the photon number equal each other in the coherent state, because it follows Poisson distribution
+\begin{align}
+  \ev{n} & = \abs{ \alpha }^2,
+  &
+  \Var {n} & \equiv \ev{ n^2 } - \ev{ n }^2 = \ev{n } = \abs{ \alpha }^2.
+\end{align}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.99\linewidth]{probs_coh_therm}
+  \caption{Probabilities to obtain $k$ photons in (left) coherent states and (right) thermal states for different parameters characterizing these states.}
+  \label{fig:probs_coh_therm}
+\end{figure}
+
+We can also compute intensity autocorrelation function for a coherent state (pronounced "gee-two"):
+\begin{equation}
+  g^{(2)}_{\ket{ \alpha }}
+  \equiv
+  \frac{ \mel{\alpha}{ ( \hat a\dg )^2 \hat a ^2 }{\alpha} }{
+  ( \mel{\alpha}{ \hat a\dg \hat a }{\alpha})^2 }
+  = 1,
+\end{equation}
+when $\alpha \neq 0$.
+
+% >>>
+\subsection{Coherent states: Phase space properties/ continuous variables (CV)} % <<<
+\label{sec:phase_space_properties}
+
+Coherent states can be alternatively obtained as a result of application of the displacement operator $\hat D(\alpha)$ to the ground state $\ket {0}$ of the HO:
+\begin{align}
+  \ket{\alpha } & = \hat D (\alpha ) \ket{ 0 },
+  & \text{ where }
+  \hat D (\alpha) & = \exp[ \alpha \hat a\dg - \alpha^* \hat a ].
+\end{align}
+
+This dictates that, similarly to the ground state, coherent states are Gaussian.
+This means they have Gaussian wave functions, Wigner functions etc.
+Gaussian states can be fully characterized by their first two statistical moments of quadratures.
+These moments are the vector of mean values of the quadratures and the covariance matrix.
+
+To compute these moments, we can use~\cref{eq:coh:ket:def} to compute expectations of the quadratures of the harmonic oscillator.
+To perform computations, we reorder (if needed) the operators to have all $\hat a\dg$ to the left from all $\hat a$, then use the properties that
+\begin{align}
+  \hat a \ket{\alpha} & = \alpha \ket{\alpha},
+  & \text{ and }
+  \bra{ \alpha } \hat a\dg & = \alpha ^* \bra{ \alpha }.
+\end{align}
+So
+\begin{align}
+  & \ev{ \hat q }_{\ket{\alpha}}
+  = \mel{ \alpha }{ \hat q }{ \alpha }
+  = \mel{\alpha}{ \hat a + \hat a\dg }{ \alpha }
+  =
+  \mel{\alpha}{ \hat a }{\alpha }
+  + \mel{\alpha}{ \hat a \dg }{\alpha } = ( \alpha + \alpha ^* ) \braket{ \alpha }{ \alpha }
+  = 2 \Re \alpha ,
+  \\
+  & \ev{ \hat p }_{ \ket{\alpha}}
+  = \mel{ \alpha }{ \hat p }{ \alpha }
+  = \mel{\alpha}{ ( \hat a - \hat a\dg )/ \ii }{ \alpha }
+  = ( \alpha - \alpha ^* ) / \ii = 2 \Im \alpha .
+\end{align}
+
+For the second moments we can find
+\begin{multline}
+  \ev{ \hat q^2 }_{\ket{\alpha}}
+  = \mel{ \alpha }{ \hat a^2 + (\hat a\dg)^2 + \hat a \hat a\dg + \hat a\dg \hat a }{ \alpha }
+  = \mel{ \alpha }{ \hat a^2 + (\hat a\dg)^2 + 2 \hat a\dg \hat a + 1 }{ \alpha }
+  \\
+  = \alpha^2 + ( \alpha^* )^2 + 2 \alpha^* \alpha + 1
+  = ( \alpha + \alpha^* )^2 + 1
+  = ( 2 \Re \alpha )^2 + 1
+  = \ev{ \hat q }_{\ket{ \alpha }}^2 + 1.
+\end{multline}
+Therefore, for the variance of the position quadrature we have
+\begin{equation}
+  \Var _{\ket{ \alpha }} \hat q  \equiv \ev{ \hat q^2 } - \ev{ \hat q }^2 = 1.
+\end{equation}
+We can show a similar result for $\hat p$, and that there are no cross-correlations between the quadratures.
+As a result,
+\begin{align}
+  \Var q & = \Var p = 1,
+  &
+  \ev{ \hat q \hat p + \hat p \hat q } _{\ket{ \alpha }} = 0.
+\end{align}
+This is the same, as in the ground state of the HO $\ket{0}$.
+This is quite expected, given that a coherent state is essentially a displaced ground state.
+
+
+Therefore, the mean values of quadratures of a coherent state are defined by the coherent state label $\alpha$, and the second moments (variances) equal the ground state (shot-noise) variance.
+We summarize this by writing
+\begin{align}
+  \mvec \mu_\alpha & = 2 ( \Re \alpha , \Im \alpha )^\intercal,
+  &
+  \mmat V _\alpha & =
+  \begin{pmatrix}
+    1 & 0 \\ 0 & 1
+  \end{pmatrix} = \mathbb{1}_2.
+\end{align}
+
+Note that the factor of $2$ in the mean values is the result of our choice of definitions of $\hat q, \hat p$:
+\begin{align}
+  \hat q & = \hat a + \hat a \dg
+  &
+  \hat p & = ( \hat a - \hat a\dg ) / \ii.
+\end{align}
+Consequently, $\comm{ \hat q }{ \hat p } = 2 \ii$.
+
+Knowing the statistical moments of the quadratures, we can write the Gaussian Wigner function for coherent states.
+Wigner function is a quasi-probability function that can take negative values for non-classical states.
+Importantly, it is a real-valued function defined on the phase space, so it takes two real-valued arguments.
+For a coherent state $\alpha$ it reads
+\begin{equation}
+  W_{\ket{\alpha}} (q,p)
+  =
+  \frac{ 1 }{ 2 \pi }
+  \exp\left[
+  - \frac{ ( q - 2 \Re \alpha )^2 + ( p - 2 \Im \alpha)^2 }{ 2 }
+  \right].
+\end{equation}
+
+In particular, for the wave function in the position basis we can write
+\begin{equation}
+  \psi_{\alpha} (q) = \braket{ q }{ \alpha }
+  =
+  \frac{ 1 }{ \sqrt[4]{2 \pi }}
+  \exp\left[ - \frac{ \left( x - 2 \Re(\alpha)\right)^2 }{ 4 } + \ii \Im \alpha x \right].
+\end{equation}
+
+Lastly, different coherent states are not orthogonal
+\begin{equation}
+  \braket{ \beta }{ \alpha }
+  = \exp\left[- \frac 12 (|\beta|^2+|\alpha|^2-2\beta^*\alpha)\right]\neq\delta(\alpha-\beta).
+\end{equation}
+For orthogonal states, we'd have $\braket{ \alpha }{ \beta } = 0$ as long as $\alpha \neq \beta$.
+
+% >>>
+\subsection{Non-classical states} % <<<
+\label{sec:nonclassical_states}
+
+Coherent states form an overcomplete basis, in which other quantum states can be expanded.
+So, for an arbitrary state $\rho$, one can write its expansion over coherent states:
+\begin{equation}
+  \rho = \int \dl{ \Re \alpha} \dl{ \Im \alpha} \: P_\rho (\alpha) \projector{\alpha}.
+\end{equation}
+This is called the \emph{Glauber-Sudarshan} representation, and $P_\rho$ is called \emph{the $P$-function} or \emph{Glauber-Sudarshan $P$-function}.
+This representation is used to distinguish classical states from non-classical.
+Those states for which their $P$-function is a regular probability distribution, are said to be classical.
+Other states are non-classical.
+
+The definition above tells that classical statistical mixtures of coherent states are also classical.
+Statistical mixtures of coherent states cannot have variances of quadratures lower than the variance of the coherent state (shot noise).
+Correspondingly, a quantum state that shows squeezing in any quadrature, is necessarily non-classical.
+
+% >>>
+\subsection{Thermal states} % <<<
+\label{sec:thermal_states}
+
+Thermal states $\hat \rho\s{th}(m)$ are classical mixed states of a HO.
+They are characterized by a single real number $m > 0$ which is the mean occupation (mean number of photons):
+\begin{equation}
+  \ev{ \hat n } = \ev{ \hat a\dg \hat a } = \Tr( \hat \rho\s{th} (m) \hat a\dg \hat a ) = m.
+\end{equation}
+
+For a physical oscillator of the frequency $\omega$ in thermal equilibrium with the environment at temperature $T$, the mean number of photons (or phonons) is defined by the Bose-Einstein statistics:
+\begin{equation}
+  m = \left( \exp\left[ \hbar \omega / ( k\s{B} T )\right] - 1 \right)^{-1}
+  \approx \frac{ k\s{B} T }{ \hbar \omega },
+\end{equation}
+where $\hbar$ is the reduced Planck's constant, $k\s{B}$ is Boltzmann's constant.
+For light frequencies even at room temperature $m = 0$ to a good accuracy.
+Thermal state with $m=0$ is the ground state.
+
+In the Fock basis, thermal state can be written as
+\begin{align}
+  \hat \rho\s{th} (m) & = \sum_{k = 0 }^\infty p\s{th} (k; m) \projector{k},
+  &
+  \text{ where }
+  p\s{th} ( k; m) & = \frac{ m^k }{ ( 1  + m )^{k + 1 } }.
+\end{align}
+Example photon number distributions can be seen in~\cref{fig:probs_coh_therm}~(right).
+
+The intensity autocorrelation for a thermal state equals two:
+\begin{equation}
+  g^{(2)}\s{th} = 2,
+\end{equation}
+when $m \neq 0$.
+
+Thermal state is Gaussian, with zero mean values of both quadratures and symmetric covariances:
+\begin{align}
+  \mvec \mu\s{th} & = 0,
+  &
+  \mmat V\s{th} (m) & =
+  \begin{pmatrix}
+    2 m + 1 & 0 \\ 0 & 2 m + 1
+  \end{pmatrix}
+  = ( 2 m + 1 ) \mathbb{ 1 }.
+\end{align}
+We can write the Wigner function of this Gaussian state:
+\begin{equation}
+  W\s{th} (q ,p; m ) =
+  \frac{ 1 }{ 2 \pi ( 2 m + 1 ) }
+  \exp\left[ - \frac{ 1 }{ 2 }\cdot \frac{ q^2 + p^2 }{ 2 m + 1 } \right].
+\end{equation}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=.49 \linewidth]{therm3d.pdf}
+  \includegraphics[width=.49 \linewidth]{ellipses.pdf}
+  \caption{Illustrations of Gaussian quantum states.
+    Left: a thermal state with $m = 2$ photons.
+    Right: ellipses showing variances of different states.
+    The ellipses are centered at mean values of quadratures corresponding to these states.
+  Gray: ground state $\ket{0}$, red: thermal state with $m = 2$ photons; green, purple: squeezed states (green: squeezed in momentum; purple: squeezed in position); dark blue: coherent state with $2 \alpha = 3 + 2 \ii$; light blue: displaced squeezed state. }
+  \label{fig:gaussian_plots}
+\end{figure}
+
+% >>>
+\subsection{Squeezed states} % <<<
+\label{sec:squeezed_states}
+
+Applying a squeeze operator $\hat S (\zeta) = \exp\left[ \frac 12 ( \zeta^* \hat a^2 -  \zeta ( \hat a\dg )^2 )\right]$ to the ground state $\ket{0}$ of a HO, one can obtain \emph{squeezed states}:
+\begin{equation}
+  \ket{ \zeta } = \hat S (\zeta) \ket{0}.
+\end{equation}
+The parameter $\zeta = r \ee^{ \ii \phi }$ is called the squeezing parameter and can be complex.
+Often it is separated into the real-valued squeezing magnitude $r$ and the real-valued squeezing phase $\phi$.
+
+With $r\neq 0$, the resulting squeezed states are non-classical Gaussian quantum states.
+They have zero mean values of the quadratures, and the covariance matrix describing an ellipse in the phase space.
+In particular, for $\phi = 0$,
+\begin{align}
+  \label{eq:squeez.st}
+  \mvec \mu\s{S} & = \mvec 0, &
+  \mmat V\s{S} & =
+  \begin{pmatrix}
+    \ee^{ - 2 r } & 0 \\
+    0 & \ee^{ 2 r }
+  \end{pmatrix}.
+\end{align}
+That is, the variance of the position is suppressed, the variance of momentum is enlarged.
+Importantly, the determinant of the covariance matrix remains fixed.
+For different values of $\phi$, squeezed will be a different quadrature, however an orthogonal quadrature will always be anti-squeezed.
+
+The Wigner function for the state with statistics given by~\cref{eq:squeez.st} reads
+\begin{equation}
+  W_S ( q , p ) = \frac{ 1 }{ 2 \pi }
+  \exp \left[ - \frac 12
+  \left( x^2 \ee^{ 2 r } + p^2 \ee^{ -2 r } \right) \right].
+\end{equation}
+
+Since squeezed states have variances of some quadratures suppressed below the shot-noise level, these states are non-classical.
+It is easy to show that when we take a statistical mixture of two or more coherent states, the variance of any quadrature cannot be made smaller than the variance corresponding to the ground state.
+
+% >>>
+\subsection{Displaced squeezed and squeezed coherent states} % <<<
+\label{sec:displaced_squeezed_states}
+
+Combination of displacement and squeezing can produce non-classical states.
+
+First, displacing a squeezed state does not change its covariance matrix, therefore, a squeezed state, initially non-classical, preserves its non-classicality upon displacement.
+Second, squeezing a coherent state will squeeze variance of some quadrature, and make the resulting state non-classical.
+
+Importantly, the operations of squeezing and displacement, do not commute, that is their order matters:
+\begin{equation}
+  \hat S ( \zeta ) \hat D ( \alpha )  \neq \hat D (\alpha ) \hat S ( \zeta ).
+\end{equation}
+On the other hand, one can always find another pair of squeezing and displacement parameters $(\alpha', \zeta')$ such that
+\begin{equation}
+  \hat S ( \zeta ) \hat D ( \alpha ) = \hat D (\alpha' ) \hat S ( \zeta' ).
+\end{equation}
+
+Either way, the Gaussian parameters of the resulting states will have a non-zero vector of mean values of the quadratures and a covariance matrix corresponding to a squeezed state, e.g.:
+\begin{align}
+  \mvec \mu\s{DS} & =
+  \begin{pmatrix}
+    \ev{q} \\ \ev{ p}
+  \end{pmatrix},
+  &
+  \mmat V\s{DS} & =
+  \begin{pmatrix}
+    \ee^{ - 2 r } & 0 
+    \\
+    0 & \ee^{ 2 r }
+  \end{pmatrix}.
+\end{align}
+
+% >>>
+\subsection{Fock states} % <<<
+\label{sec:fock_states}
+
+As we know, classical are the coherent states and their classical mixtures (equivalently, incoherent statistical mixtures).
+All the remaining states are non-classical.
+Text-book examples of non-classical states are the Fock states.
+
+Fock states $\ket{k}$ are the energy levels of harmonic oscillator.
+
+The probability to obtain $n$ photons having a state $\ket{k}$ is quite straightforwardly,
+\begin{equation}
+  p_n (k) = \delta_{nk },
+\end{equation}
+where $\delta$ is the Kronecker delta-symbol.
+The probability is $1$ when $n = k$ and zero otherwise.
+
+The wave-function of a Fock state in the position basis is (up to normalization)
+\begin{equation}
+  \psi_n (q) = \braket{ q }{ n }
+  \propto H_n \left( \frac{ q }{ \sqrt{ 2 }} \right)
+  \exp\left[ - \frac{ q ^2 }{ 4 } \right],
+\end{equation}
+where $H_n$ are Hermite polynomials.
+
+In quantum optics, the Wigner function is used often:
+\begin{equation}
+  W_n (q , p ) = \frac{ ( -1 )^{-1} }{ 2 \pi }
+  \exp\left[ - \frac{ q^2 + p^2 }{ 2 } \right]
+  L_n ( q^2 + p^2 ).
+\end{equation}
+Here $L_n$ are Laguerre polynomials.
+In particular,
+\begin{align}
+  L_0 (x) & = 1, &
+  L_1 (x) & = 1 - x, &
+  L_2 (x) & = 1 - 2 x + x^2 / 2.
+\end{align}
+Obviously, these Wigner functions don't change under rotation of the phase space.
+
+Wigner functions of Fock states are illustrated in~\cref{fig:plt_wig_fock}.
+
+\begin{figure}[htb]
+  \centering
+  % \includegraphics[width=0.58\linewidth]{plt_wig_indiv}
+  \includegraphics[width=0.5\linewidth]{plt_wig_grp}
+  \includegraphics[width=0.4\linewidth]{plt_wig3d}
+  \caption{
+    Left: cuts of Wigner functions of the Fock states $\ket{0}$ to $\ket{3}$.
+    Right: Wigner function $W_4(q,p)$ of the Fock state $\ket{4}$.
+  }
+  \label{fig:plt_wig_fock}
+\end{figure}
+
+% >>>
+\subsection{Other non-classical states} % <<<
+\label{sec:other_non_classical_states}
+
+
+
+
+% >>>
+
+% >>>
+
+\newpage
+\appendix
+
+\section{Harmonic oscillator} % <<<
+\label{sec:harmonic_oscillator}
+
+Harmonic oscillator (HO) is a system with the Hamiltonian that equals
+\begin{equation}
+  \hat H\s{HO} = \hbar \omega ( \hat a\dg \hat a +  \sfrac 12 ) \equiv \hbar \omega ( \hat n + \sfrac 12 ),
+\end{equation}
+where $\omega$ is the frequency of the oscillator, $\hat a$ is the \emph{annihilation} operator, $\hat a\dg$ is the \emph{creation} operator, $\hat n$ is the \emph{photon-number} operator.
+The operators $\hat a, \hat a\dg$ are sometimes called the \emph{ladder} operators or \emph{bosonic} operators.
+These operators satisfy the \emph{fundamental/canonical commutation relation}
+\begin{equation}
+  \comm{ \hat a }{ \hat a \dg } = 1.
+\end{equation}
+
+Energy levels of the HO are called \emph{Fock} states:
+\begin{equation}
+  \hat H\s{HO} \ket{ k } = E_k \ket{ k } = \hbar \omega ( k + \sfrac 12 ) \ket{ k },
+  \qquad
+  \text{ for }
+  k = 0,1,2,\dots
+\end{equation}
+
+Operators $\hat a, \hat a\dg$ perform jumps between the levels:
+\begin{align}
+  \hat a \ket{ k }        & = \sqrt{ k } \ket{ k - 1 }, &
+  \hat a\dg \ket{ k - 1 } & = \sqrt{ k } \ket {k }.
+\end{align}
+Note that $\hat a \ket{0} = 0$.
+
+It is convenient to introduce the \emph{quadrature} operators:
+\begin{align}
+  \hat q & = \hat a + \hat a\dg, &
+  \hat p & = ( \hat a - \hat a\dg ) / \ii.
+\end{align}
+These operators satisfy the following canonical commutation relation: $\comm{ \hat q }{ \hat p } = 2 \ii$.
+
+It is convenient to describe HO with their Wigner function.
+For a Gaussian state with the vector of means $\mu$ and covariance matrix $\mmat V$, the Wigner function reads
+\begin{equation}
+  W_G ( q , p ; \mvec \mu, \mmat V )
+  =
+  \frac{ 1 }{ 2 \pi \sqrt{ \det \mmat V }}
+  \exp\left[
+  - \frac 12 \mvec d^\intercal \mmat V^{-1}  \mvec d
+  \right],
+\end{equation}
+where $\mvec d$ is the vector of deviations from the mean values:
+\[
+  \mvec d
+  =
+  \begin{pmatrix}
+    q - \ev{ \hat q } \\ p - \ev{ \hat p }
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    q \\ p
+  \end{pmatrix}- \mvec \mu.
+\]
+
+% >>>
+
+% \bibliography{/home/omn/works/refs}
+\end{document}
