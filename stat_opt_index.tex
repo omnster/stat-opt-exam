@@ -11,12 +11,16 @@
 \usepackage[small,euler-digits,euler-hat-accent]{eulervm}
 \renewcommand{\hbar}{\hslash}
 \usepackage{xfrac}
+\usepackage[mleftright]{diffcoeff}
 
 \input{/home/omn/works/styles/latex/revtex4-1.tex}
 \input{/home/omn/works/tmp/newcommands.tex}
 
 % \usepackage{autonum}
 
+\usepackage{multicol}
+\BeforeStartingTOC[toc]{\begin{multicols}{2}}
+\AfterStartingTOC[toc]{\end{multicols}}
 
 \begin{document}
 
@@ -35,11 +39,9 @@
 
 % >>>
 
-
-  % \begin{enumerate}
-  %   \item Coherent, thermal and non-classical states of light, their properties and mathematical representation
-  %   \item Isolated and open quantum dynamics of quantum states of light and atoms, description and basic models
-  % \end{enumerate}
+  {\footnotesize
+  \tableofcontents
+}
 
 \section{Coherent, thermal and non-classical states of light, their properties and mathematical representation}% <<<
 
@@ -395,7 +397,7 @@ In particular,
   L_1 (x) & = 1 - x, &
   L_2 (x) & = 1 - 2 x + x^2 / 2.
 \end{align}
-Obviously, these Wigner functions don't change under rotation of the phase space.
+Obviously, these Wigner functions are rotationally symmetric (don't change under rotation of the phase space).
 
 Wigner functions of Fock states are illustrated in~\cref{fig:plt_wig_fock}.
 
@@ -415,7 +417,202 @@ Wigner functions of Fock states are illustrated in~\cref{fig:plt_wig_fock}.
 \subsection{Other non-classical states} % <<<
 \label{sec:other_non_classical_states}
 
+There are many more non-classical states then described previously.
+Though it can be challenging to create non-classical states experimentally.
+Different strategies to create non-classical states include adding and subtracting photons or using nonlinearities.
 
+
+% >>>
+
+% >>>
+
+\newpage
+
+\section{Isolated and open quantum dynamics of quantum states of light and atoms, description and basic models} % <<<
+\label{sec:isolated_and_open_quantum_dynamics_of_quantum_states_of_light_and_atoms_description_and_basic_models}
+
+We start with a description of the dynamics of isolated systems, then outline some approaches to open systems.
+
+\subsection{Isolated quantum systems} % <<<
+\label{sec:isolated_quantum_systems}
+
+Normally, dynamics of the isolated quantum system can be described by its \emph{Hamiltonian} (operator of energy) $\hat H$.
+The ``dynamics'' means evolution of the quantum state.
+The quantum state of a quantum system at each time is described by the state vector (equivalently, wave-function) $\ket{ \psi (t) }$.
+The evolution of the state vector is given by the Schrödinger equation
+\begin{equation}
+  \diff{}{ t }  \ket{ \psi(t) }= \frac{ 1 }{ \ii \hbar } \hat H \ket{ \psi (t) }.
+\end{equation}
+Its solution can be written as
+\begin{equation}
+  \label{eq:closed:shrodingerpic}
+  \ket{ \psi (t) } = \hat U (t , t_0) \ket{ \psi (0) },
+\end{equation}
+where $\hat U (t,t_0)$ is a \emph{unitary} operator (meaning $\hat U \hat U\dg = \hat 1$) that equals
+\begin{equation}
+  U (t,t_0) = \exp\left[ - \ii \hat H ( t - t_0) / \hbar \right].
+\end{equation}
+
+When we have an observable $\hat A$ and want to compute its statistics (say, mean value) as a function of time, we have to substitute $\ket{ \psi (t)}$.
+Then we have
+\begin{equation}
+  \ev{ \hat A } _{\ket{ \psi }} (t)
+  = \mel{ \psi (t) }{ \hat A }{ \psi (t) }
+  = \mel{ \psi (t_0) }{ \hat U\dg (t, t_0) \hat A \hat U (t , t_0) }{ \psi (0) }
+  = \mel{ \psi (0) }{ \hat A\s{H} (t) }{ \psi (0) },
+\end{equation}
+where $\hat A\s{H}(t)$
+\begin{equation}
+  \hat A\s{H} (t) = \hat U\dg (t , t_0) \hat A \hat U (t, t_0)
+\end{equation}
+is the operator in the \emph{Heisenberg picture}.
+At the initial time $t = t_0$, the operators in Heisenberg picture and Schrödinger picture coincide: $\hat A\s{H} (t_0) = \hat A$.
+
+We can show that the operator in the Heisenberg picture satisfies the Heisenberg equation
+\begin{equation}
+  \label{eq:heisenberg:eqn}
+  \diff{ \hat A\s{H} (t) }{ t } = \frac{ \ii }{ \hbar } \comm{ \hat H }{ \hat A\s{H} }
+  = \frac{ \ii }{ \hbar } \comm{ \hat H }{ \hat A }.
+\end{equation}
+
+Lastly, we have to consider the case when our isolated system is initially in a mixed (not pure) state.
+Then it does not have the state vector $\ket{ \psi }$ but rather is described by the density matrix $\hat \rho$.
+In Schrödinger picture, the density matrix obeys \emph{von Neumann} equation
+\begin{equation}
+  \label{eq:vonneumann:eqn}
+  \diff{}{t} \hat \rho (t) = \frac{ \ii }{ \hbar } \comm{ \hat \rho }{ \hat H }.
+\end{equation}
+Its solution reads
+\begin{equation}
+  \rho (t) = \hat U (t, t_0 ) \hat \rho (t_0) \hat U \dg (t, t_0).
+\end{equation}
+
+Summary: we will mostly use~\cref{eq:heisenberg:eqn,eq:vonneumann:eqn}.
+
+% >>>
+\subsection{Atom-light interaction: formulation} % <<<
+\label{sec:atom_light_interaction}
+
+The key models to study here are the Rabi model and the Jaynes-Cummings model.
+Both the models consider interaction of a two-level atom with light inside a cavity.
+The Hamiltonian for such a system reads
+\begin{equation}
+  \hat H = \hat H\s{A} + \hat H\s{cav} + \hat H\s{int},
+\end{equation}
+where $\hat H\s{A}$ is the Hamiltonian of a bare atom,
+$\hat H\s{cav}$ is the Hamiltonian of the bare cavity, and $\hat H\s{int}$ is the interaction Hamiltonian.
+
+In more detail, the cavity is a harmonic oscillator of frequency $\omega\s{c}$ with the annihilation operator $\hat a$, so
+\begin{equation}
+  \hat H\s{cav} = \hbar \omega\s{cav} \hat a\dg \hat a.
+\end{equation}
+
+The ``two-level atom'' is an atom such that only two its energy sublevels can be addressed by the light.
+The other levels do not take part in the interaction, so the atom effectively has only two energy levels.
+The two levels are normally denoted $\ket{g}$ (for the lower level) and $\ket{e}$ (for the higher energy level), with energies $E_e > E_g$.
+The values of these energies are insignificant on their own, but what matters is the energy difference:
+\begin{equation}
+  \frac{ E_e - E_g }{ \hbar } = \omega_q.
+\end{equation}
+This is the transition frequency of the atom, and this is the only number that fully describes the atom.
+The Hamiltonian of the atom reads
+\begin{equation}
+  \hat H\s{A}
+  = \frac{ \hbar \omega_q }{ 2 } \sigma_z
+  = \frac{ \hbar \omega_q }{ 2 }
+  \begin{pmatrix}
+    1 & 0 \\ 0 & - 1
+  \end{pmatrix}.
+\end{equation}
+Here $\sigma_z$ is a Pauli matrix.
+Note that we write the matrix of the Hamiltonian operator.
+We do this in the basis of the energy levels of the atom, so we can expand it to the full form as
+\begin{equation}
+  \hat H\s{A}
+  = \frac{ \hbar \omega_q }{ 2 }
+  \bigg[ \projector{e} -  \projector{g} \bigg].
+\end{equation}
+
+Finally, the interaction between cavity light and the atom is assumed to be a dipole interaction.
+From classical electrodynamics, the interaction between a dipole moment $\mvec d$ and the electric field $\mvec E$ equals $\mathcal H = - \mvec d \cdot \mvec E$.
+Now we represent the dipole moment in terms of the atom operators:
+\begin{equation}
+  \hat { \mvec d } = \hat \sigma_+ d + \hat \sigma_- d^*,
+\end{equation}
+where $d$ is a dimensional coefficient, and
+\begin{align}
+  \sigma_+ & =
+  \begin{pmatrix}
+    0 & 1 \\ 0 & 0
+  \end{pmatrix},
+  &
+  \sigma_- = \sigma_+\dg & =
+  \begin{pmatrix}
+    0 & 0 \\ 1 & 0
+  \end{pmatrix}.
+\end{align}
+Then, we represent the electric field $\mvec E$ as
+\begin{equation}
+  \hat{\mvec E }= A \hat a + A^* \hat a\dg,
+\end{equation}
+where $A$ is a dimensional coefficient.
+
+Collecting everything together, the interaction Hamiltonian reads
+\begin{equation}
+  \hat H\s{int} = \hbar g (\hat \sigma_+ +\hat \sigma_- ) ( \hat a + \hat a\dg ),
+\end{equation}
+where we for simplicity assumed $d = d^*$ and $A = A^*$, and introduced the coupling rate $g = A d / \hbar$.
+Moreover, strictly speaking, above $d$ has to be a vector including geometric properties of the atom, and $A$ also has to be a vector taking into account polarization of light.
+The scalar product of these two quantities will contribute to the coupling rate $g$.
+
+Collecting together the parts of the atom-light Hamiltonian, we can finally write the full Hamiltonian:
+\begin{equation}
+  \hat H\s{A-L} =
+  \hbar \omega\s{cav} \hat a \dg \hat a 
+  + \frac 12 \hbar \omega_q \hat \sigma_z 
+  + \hbar g (\hat \sigma_+ +\hat \sigma_- ) ( \hat a + \hat a\dg ).
+\end{equation}
+This Hamiltonian will be the starting point for the subsequent discussion.
+
+% >>>
+\subsection{Atom-light interaction: Rabi model} % <<<
+\label{sec:atom_light_interaction_rabi_model}
+
+The Rabi model assumes the light to be a classical field following a harmonic law:
+\begin{equation}
+  ( \hat a + \hat a\dg ) = E(t) = \varepsilon \cos ( \omega\s{cav} t  ).
+\end{equation}
+The first term (the light Hamiltonian) can be discarded: if the field is classical, this first term will become simply a complex number.
+In all quantum pictures it will commute with every operator and will thus not contribute to the equations of motion.
+
+% >>>
+\subsection{Open quantum systems: General notes} % <<<
+\label{sec:open_quantum_systems}
+
+The usual approach to open quantum systems is as follows (see~\cref{fig:opensys}).
+The system in consideration is extended to include not only the studied system itself (``System''), but also its environment (``Bath'') with which the system interacts in an attempt to get the solution for the compound system.
+Normally some assumptions are made about the environment and the type of the system-bath interaction to simplify the solutions.
+Afterwards, the environment is traced out to obtain the effective equations for the system of interest.
+This tracing out can involve e.g. taking the average over the bath variables or something similar, and depends on the approach.
+
+The two most prominent approaches to open systems are
+\begin{itemize}
+  \tightlist
+  \item Heisenberg-Langevin equations of motion
+  \item master equations (Lindblad, Bloch-Redfield, \dots)
+\end{itemize}
+
+\begin{figure}[htb]
+  \centering
+  \begin{tikzpicture}
+    \draw [ BrickRed, fill = BrickRed!10] (0,0) circle [x radius=3cm, y radius = 12mm ] ;
+    \draw [ Green, fill = Green!10, fill opacity = .5] (0.2,0.2) circle [x radius=1.2cm, y radius = 5mm ] ;
+    \node at (0.2,0.2) {System} ;
+    \node at (0,-8mm) {Environment} ;
+  \end{tikzpicture}
+  \caption{Illustration of an open system being embedded into a larger system (environment).}
+  \label{fig:opensys}
+\end{figure}
 
 
 % >>>
