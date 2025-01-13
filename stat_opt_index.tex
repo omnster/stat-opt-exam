@@ -13,8 +13,13 @@
 \usepackage{xfrac}
 \usepackage[mleftright]{diffcoeff}
 
+
 \input{/home/omn/works/styles/latex/revtex4-1.tex}
 \input{/home/omn/works/tmp/newcommands.tex}
+
+\usepackage{empheq}
+\definecolor{mygr}{rgb}{0,0,.9}
+\newcommand*{\mybx}[1]{\colorbox{mygr!15}{\hspace{1em}#1\hspace{1em}}}
 
 % \usepackage{autonum}
 
@@ -52,25 +57,25 @@ These states are quantum states of a harmonic oscillator (HO; see~\cref{sec:harm
 \label{sec:photon_number_distribution}
 
 Coherent states can be defined as eigenstates of the \emph{annihilation operator} $\hat a$ of the HO:
-\begin{equation}
+\begin{empheq}[box=\mybx]{equation}
   \label{eq:coh:ket:def}
   \hat a \ket{ \alpha } = \alpha \ket {\alpha },
-\end{equation}
+\end{empheq}
 where $\ket{\alpha}$ is the notation for the coherent state that uses a complex number $\alpha$.
 
 We can write the coherent state in the basis of the energy levels of the HO (Fock states):
-\begin{equation}
+\begin{empheq}[box=\mybx]{equation}
   \ket{ \alpha } = \exp\left[- \frac{\abs{ \alpha }^2}{2} \right]
   \sum_{k=0}^\infty \frac{\alpha^k}{\sqrt{ k!}} \ket{k}.
-\end{equation}
+\end{empheq}
 The probability to obtain $m$ photons in a coherent state $\alpha$ then equals
-\begin{equation}
+\begin{empheq}[box=\mybx]{equation}
   p_m (\alpha) = \abs{ \braket{ m }{ \alpha }}^2
   = \ee^{ - \abs{ \alpha }^2 }
   \frac{ \abs{\alpha}^{2m} }{ m! }
   =
   \ee^{ - \ev{n} } \frac{ \ev{n }^m }{ m! },
-\end{equation}
+\end{empheq}
 where we denoted by $\ev{n}$ the mean number of phonons in this coherent state.
 Example photon number distributions can be seen in~\cref{fig:probs_coh_therm}~(left).
 It can be proven (we can compute it) that the mean number of photons and the variance of the photon number equal each other in the coherent state, because it follows Poisson distribution
@@ -102,11 +107,11 @@ when $\alpha \neq 0$.
 \label{sec:phase_space_properties}
 
 Coherent states can be alternatively obtained as a result of application of the displacement operator $\hat D(\alpha)$ to the ground state $\ket {0}$ of the HO:
-\begin{align}
+\begin{empheq}[box=\mybx]{align}
   \ket{\alpha } & = \hat D (\alpha ) \ket{ 0 },
   & \text{ where }
   \hat D (\alpha) & = \exp[ \alpha \hat a\dg - \alpha^* \hat a ].
-\end{align}
+\end{empheq}
 
 This dictates that, similarly to the ground state, coherent states are Gaussian.
 This means they have Gaussian wave functions, Wigner functions etc.
@@ -115,11 +120,11 @@ These moments are the vector of mean values of the quadratures and the covarianc
 
 To compute these moments, we can use~\cref{eq:coh:ket:def} to compute expectations of the quadratures of the harmonic oscillator.
 To perform computations, we reorder (if needed) the operators to have all $\hat a\dg$ to the left from all $\hat a$, then use the properties that
-\begin{align}
+\begin{empheq}[box=\mybx]{align}
   \hat a \ket{\alpha} & = \alpha \ket{\alpha},
   & \text{ and }
   \bra{ \alpha } \hat a\dg & = \alpha ^* \bra{ \alpha }.
-\end{align}
+\end{empheq}
 So
 \begin{align}
   & \ev{ \hat q }_{\ket{\alpha}}
@@ -164,14 +169,14 @@ This is quite expected, given that a coherent state is essentially a displaced g
 
 Therefore, the mean values of quadratures of a coherent state are defined by the coherent state label $\alpha$, and the second moments (variances) equal the ground state (shot-noise) variance.
 We summarize this by writing
-\begin{align}
+\begin{empheq}[box=\mybx]{align}
   \mvec \mu_\alpha & = 2 ( \Re \alpha , \Im \alpha )^\intercal,
   &
   \mmat V _\alpha & =
   \begin{pmatrix}
     1 & 0 \\ 0 & 1
   \end{pmatrix} = \mathbb{1}_2.
-\end{align}
+\end{empheq}
 
 Note that the factor of $2$ in the mean values is the result of our choice of definitions of $\hat q, \hat p$:
 \begin{align}
@@ -185,14 +190,14 @@ Knowing the statistical moments of the quadratures, we can write the Gaussian Wi
 Wigner function is a quasi-probability function that can take negative values for non-classical states.
 Importantly, it is a real-valued function defined on the phase space, so it takes two real-valued arguments.
 For a coherent state $\alpha$ it reads
-\begin{equation}
+\begin{empheq}[box=\mybx]{equation}
   W_{\ket{\alpha}} (q,p)
   =
   \frac{ 1 }{ 2 \pi }
   \exp\left[
   - \frac{ ( q - 2 \Re \alpha )^2 + ( p - 2 \Im \alpha)^2 }{ 2 }
   \right].
-\end{equation}
+\end{empheq}
 
 In particular, for the wave function in the position basis we can write
 \begin{equation}
@@ -215,9 +220,9 @@ For orthogonal states, we'd have $\braket{ \alpha }{ \beta } = 0$ as long as $\a
 
 Coherent states form an overcomplete basis, in which other quantum states can be expanded.
 So, for an arbitrary state $\rho$, one can write its expansion over coherent states:
-\begin{equation}
-  \rho = \int \dl{ \Re \alpha} \dl{ \Im \alpha} \: P_\rho (\alpha) \projector{\alpha}.
-\end{equation}
+\begin{empheq}[box=\mybx]{align}
+  \hat \rho = \int \dl{ \Re \alpha} \dl{ \Im \alpha} \: P_\rho (\alpha) \projector{\alpha}.
+\end{empheq}
 This is called the \emph{Glauber-Sudarshan} representation, and $P_\rho$ is called \emph{the $P$-function} or \emph{Glauber-Sudarshan $P$-function}.
 This representation is used to distinguish classical states from non-classical.
 Those states for which their $P$-function is a regular probability distribution, are said to be classical.
@@ -247,12 +252,12 @@ For light frequencies even at room temperature $m = 0$ to a good accuracy.
 Thermal state with $m=0$ is the ground state.
 
 In the Fock basis, thermal state can be written as
-\begin{align}
+\begin{empheq}[box=\mybx]{align}
   \hat \rho\s{th} (m) & = \sum_{k = 0 }^\infty p\s{th} (k; m) \projector{k},
   &
   \text{ where }
   p\s{th} ( k; m) & = \frac{ m^k }{ ( 1  + m )^{k + 1 } }.
-\end{align}
+\end{empheq}
 Example photon number distributions can be seen in~\cref{fig:probs_coh_therm}~(right).
 
 The intensity autocorrelation for a thermal state equals two:
@@ -262,7 +267,7 @@ The intensity autocorrelation for a thermal state equals two:
 when $m \neq 0$.
 
 Thermal state is Gaussian, with zero mean values of both quadratures and symmetric covariances:
-\begin{align}
+\begin{empheq}[box=\mybx]{align}
   \mvec \mu\s{th} & = 0,
   &
   \mmat V\s{th} (m) & =
@@ -270,13 +275,13 @@ Thermal state is Gaussian, with zero mean values of both quadratures and symmetr
     2 m + 1 & 0 \\ 0 & 2 m + 1
   \end{pmatrix}
   = ( 2 m + 1 ) \mathbb{ 1 }.
-\end{align}
+\end{empheq}
 We can write the Wigner function of this Gaussian state:
-\begin{equation}
+\begin{empheq}[box=\mybx]{align}
   W\s{th} (q ,p; m ) =
   \frac{ 1 }{ 2 \pi ( 2 m + 1 ) }
   \exp\left[ - \frac{ 1 }{ 2 }\cdot \frac{ q^2 + p^2 }{ 2 m + 1 } \right].
-\end{equation}
+\end{empheq}
 
 \begin{figure}[htb]
   \centering
@@ -386,11 +391,11 @@ The wave-function of a Fock state in the position basis is (up to normalization)
 where $H_n$ are Hermite polynomials.
 
 In quantum optics, the Wigner function is used often:
-\begin{equation}
+\begin{empheq}[box=\mybx]{equation}
   W_n (q , p ) = \frac{ ( -1 )^{-1} }{ 2 \pi }
   \exp\left[ - \frac{ q^2 + p^2 }{ 2 } \right]
   L_n ( q^2 + p^2 ).
-\end{equation}
+\end{empheq}
 Here $L_n$ are Laguerre polynomials.
 In particular,
 \begin{align}
@@ -441,18 +446,18 @@ Normally, dynamics of the isolated quantum system can be described by its \emph{
 The ``dynamics'' means evolution of the quantum state.
 The quantum state of a quantum system at each time is described by the state vector (equivalently, wave-function) $\ket{ \psi (t) }$.
 The evolution of the state vector is given by the Schrödinger equation
-\begin{equation}
+\begin{empheq}[box=\mybx]{equation}
   \diff{}{ t }  \ket{ \psi(t) }= \frac{ 1 }{ \ii \hbar } \hat H \ket{ \psi (t) }.
-\end{equation}
+\end{empheq}
 Its solution can be written as
-\begin{equation}
+\begin{empheq}[box=\mybx]{equation}
   \label{eq:closed:shrodingerpic}
   \ket{ \psi (t) } = \hat U (t , t_0) \ket{ \psi (0) },
-\end{equation}
+\end{empheq}
 where $\hat U (t,t_0)$ is a \emph{unitary} operator (meaning $\hat U \hat U\dg = \hat 1$) that equals
-\begin{equation}
+\begin{empheq}[box=\mybx]{equation}
   U (t,t_0) = \exp\left[ - \ii \hat H ( t - t_0) / \hbar \right].
-\end{equation}
+\end{empheq}
 
 When we have an observable $\hat A$ and want to compute its statistics (say, mean value) as a function of time, we have to substitute $\ket{ \psi (t)}$.
 Then we have
@@ -462,31 +467,33 @@ Then we have
   = \mel{ \psi (t_0) }{ \hat U\dg (t, t_0) \hat A \hat U (t , t_0) }{ \psi (0) }
   = \mel{ \psi (0) }{ \hat A\s{H} (t) }{ \psi (0) },
 \end{equation}
-where $\hat A\s{H}(t)$
-\begin{equation}
+where $\hat A\s{H}(t)$ defined as
+\begin{empheq}[box=\mybx]{equation}
   \hat A\s{H} (t) = \hat U\dg (t , t_0) \hat A \hat U (t, t_0)
-\end{equation}
+\end{empheq}
 is the operator in the \emph{Heisenberg picture}.
 At the initial time $t = t_0$, the operators in Heisenberg picture and Schrödinger picture coincide: $\hat A\s{H} (t_0) = \hat A$.
 
 We can show that the operator in the Heisenberg picture satisfies the Heisenberg equation
-\begin{equation}
+\begin{empheq}[box=\mybx]{equation}
   \label{eq:heisenberg:eqn}
   \diff{ \hat A\s{H} (t) }{ t } = \frac{ \ii }{ \hbar } \comm{ \hat H }{ \hat A\s{H} }
   = \frac{ \ii }{ \hbar } \comm{ \hat H }{ \hat A }.
-\end{equation}
+\end{empheq}
 
 Lastly, we have to consider the case when our isolated system is initially in a mixed (not pure) state.
 Then it does not have the state vector $\ket{ \psi }$ but rather is described by the density matrix $\hat \rho$.
 In Schrödinger picture, the density matrix obeys \emph{von Neumann} equation
-\begin{equation}
+\begin{empheq}[box=\mybx]{equation}
   \label{eq:vonneumann:eqn}
   \diff{}{t} \hat \rho (t) = \frac{ \ii }{ \hbar } \comm{ \hat \rho }{ \hat H }.
-\end{equation}
+\end{empheq}
 Its solution reads
 \begin{equation}
   \rho (t) = \hat U (t, t_0 ) \hat \rho (t_0) \hat U \dg (t, t_0).
 \end{equation}
+Note the different order of the operators $\hat U$ and $\hat U\dg$ in the solutions for $\hat A\s{H} (t)$ and $hat \rho (t)$.
+Also, different order of operators in the commutators in~\cref{eq:heisenberg:eqn,eq:vonneumann:eqn}.
 
 Summary: we will mostly use~\cref{eq:heisenberg:eqn,eq:vonneumann:eqn}.
 
@@ -567,12 +574,12 @@ Moreover, strictly speaking, above $d$ has to be a vector including geometric pr
 The scalar product of these two quantities will contribute to the coupling rate $g$.
 
 Collecting together the parts of the atom-light Hamiltonian, we can finally write the full Hamiltonian:
-\begin{equation}
+\begin{empheq}[box=\mybx]{equation}
   \hat H\s{A-L} =
   \hbar \omega\s{cav} \hat a \dg \hat a 
   + \frac 12 \hbar \omega_q \hat \sigma_z 
   + \hbar g (\hat \sigma_+ +\hat \sigma_- ) ( \hat a + \hat a\dg ).
-\end{equation}
+\end{empheq}
 This Hamiltonian will be the starting point for the subsequent discussion.
 
 % >>>
@@ -670,7 +677,7 @@ For a Gaussian state with the vector of means $\mu$ and covariance matrix $\mmat
   \right],
 \end{equation}
 where $\mvec d$ is the vector of deviations from the mean values:
-\[
+\begin{equation}
   \mvec d
   =
   \begin{pmatrix}
@@ -680,7 +687,7 @@ where $\mvec d$ is the vector of deviations from the mean values:
   \begin{pmatrix}
     q \\ p
   \end{pmatrix}- \mvec \mu.
-\]
+\end{equation}
 
 % >>>
 
