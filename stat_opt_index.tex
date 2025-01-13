@@ -667,7 +667,7 @@ It is convenient to introduce the \emph{quadrature} operators:
 These operators satisfy the following canonical commutation relation: $\comm{ \hat q }{ \hat p } = 2 \ii$.
 
 It is convenient to describe HO with their Wigner function.
-For a Gaussian state with the vector of means $\mu$ and covariance matrix $\mmat V$, the Wigner function reads
+For a Gaussian state with the vector of means $\mvec \mu$ and covariance matrix $\mmat V$, the Wigner function reads
 \begin{equation}
   W_G ( q , p ; \mvec \mu, \mmat V )
   =
@@ -688,6 +688,79 @@ where $\mvec d$ is the vector of deviations from the mean values:
     q \\ p
   \end{pmatrix}- \mvec \mu.
 \end{equation}
+
+% >>>
+\section{Two-level system} % <<<
+\label{sec:two_level_system}
+
+Two-level system, equivalently, a qubit, is a quantum system that has two basis states or energy levels.
+Normally, they are denoted $\ket{e}$ and $\ket{g}$ or $\ket{\uparrow}$ and $\ket{\downarrow}$.
+The associated energies are $E_e$ and $E_g$.
+The Hamiltonian reads in the basis of energy levels:
+\begin{equation}
+  \hat H = E_e \projector{e} + E_g \projector{g}
+  \equiv
+  E_e
+  \begin{pmatrix}
+    1 & 0 \\ 0 & 0
+  \end{pmatrix}
+  +
+  E_g
+  \begin{pmatrix}
+    0 & 0 \\ 0 & 1
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    E_e & 0 \\ 0 & E_g
+  \end{pmatrix}
+  ,
+\end{equation}
+where we just wrote explicitly the projector operators in the matrix form.
+Energy levels are eigenstates of the Hamiltonian, so in the basis of its eigenstates, the operator is diagonal.
+The entries on the main diagonal in this basis are the eigenvalues.
+
+We can rewrite the Hamiltonian as
+\begin{multline}
+  \label{eq:qubit:hamiltonian}
+  \hat H = 
+  \begin{pmatrix}
+    E_e & 0 \\ 0 & E_g
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \frac 12 \left[ E_e - E_g \right] + \frac 12 \left[ E_e + E_g \right]a & 0
+    \\
+    0 &
+    \frac 12  \left[ E_g - E_e \right] + \frac 12 \left[ E_g + E_e \right]
+  \end{pmatrix}
+  \\
+  =
+  \frac 12 ( E_e - E_g )
+  \begin{pmatrix}
+    1 & 0 \\ 0 & -1
+  \end{pmatrix}
+  + \frac 12 ( E_e + E_g )
+  \begin{pmatrix}
+    1 & 0 \\ 0 & 1
+  \end{pmatrix}
+  =
+  \frac 12 ( E_e - E_g ) \sigma_z + \frac 12 ( E_e + E_g ) \mathbb 1.
+\end{multline}
+Where we used e.g.
+\begin{equation}
+  E_e = \frac 12 E_e + \frac 12 E_e + \frac 12 E_g - \frac 12 E_g
+  =
+  \frac 12 ( E_e - E_g ) + \frac 12 ( E_e + E_g ).
+\end{equation}
+
+Note that in~\cref{eq:qubit:hamiltonian} the last term is proportional to the identity operator.
+The identity commutes with everything, therefore, it will have no effect on any equations of motion and consequently, no effect on the quantum dynamics at all.
+Therefore, we can safely ignore it.
+The only remaining term is proportional to $\sigma_z$:
+\begin{equation}
+  \hat H = \frac 12 ( E_e - E_g ) \sigma_z = \frac 12 \hbar \omega_q \sigma_z,
+\end{equation}
+where we define  the transition frequency between the two levels as $\omega_q = ( E_e - E_g ) / \hbar$.
 
 % >>>
 
