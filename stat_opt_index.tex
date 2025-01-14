@@ -2,7 +2,7 @@
 % Preamble % <<<
 % \documentclass[10pt,twocolumn,nobalancelastpage,aps,pra,superscriptaddress,nofootinbib,longbibliography%,linenumbers
 % ]{revtex4-2}
-\documentclass[fontsize=9pt]{scrartcl}
+\documentclass[fontsize=9pt,bookmarkpackage=false]{scrartcl}
 
 % \usepackage{libertinus}
 \usepackage[a5paper,margin=10mm]{geometry}
@@ -508,8 +508,21 @@ Summary: we will mostly use~\cref{eq:heisenberg:eqn,eq:vonneumann:eqn}.
 \subsection{Atom-light interaction: formulation} % <<<
 \label{sec:atom_light_interaction}
 
+Atom-light interaction is a very broad topic.
+The standard textbook by Scully \& Zubairy uses about 80 pages for the two chapters dedicated to atom-light interaction.
+
+\begin{figure}[htb]% <<<
+  \centering
+  \inputtikz{atom-cavity}
+  \caption{Atom-light interaction illustration.
+    On the left, an atom is placed inside an optical cavity formed by the two mirrors.
+    In the middle, the energy level diagram of the atom.
+  On the right, the energy level diagram of the field in the cavity.}
+  \label{fig:atom:light:int}
+\end{figure}% >>>
+
 The key models to study here are the Rabi model and the Jaynes-Cummings model.
-Both the models consider interaction of a two-level atom with light inside a cavity.
+Both the models consider interaction of a two-level atom with light inside an optical cavity.
 The Hamiltonian for such a system reads
 \begin{equation}
   \hat H = \hat H\s{A} + \hat H\s{cav} + \hat H\s{int},
@@ -517,7 +530,7 @@ The Hamiltonian for such a system reads
 where $\hat H\s{A}$ is the Hamiltonian of a bare atom,
 $\hat H\s{cav}$ is the Hamiltonian of the bare cavity, and $\hat H\s{int}$ is the interaction Hamiltonian.
 
-In more detail, the cavity is a harmonic oscillator of frequency $\omega\s{c}$ with the annihilation operator $\hat a$, so
+In more detail, the optical cavity is a harmonic oscillator of frequency $\omega\s{c}$ with the annihilation operator $\hat a$, so
 \begin{equation}
   \hat H\s{cav} = \hbar \omega\s{cav} \hat a\dg \hat a.
 \end{equation}
@@ -675,7 +688,7 @@ For a Gaussian state with the vector of means $\mvec \mu$ and covariance matrix 
   =
   \frac{ 1 }{ 2 \pi \sqrt{ \det \mmat V }}
   \exp\left[
-  - \frac 12 \mvec d^\intercal \mmat V^{-1}  \mvec d
+    - \frac 12 \mvec d^\intercal \mmat V^{-1}  \mvec d
   \right],
 \end{equation}
 where $\mvec d$ is the vector of deviations from the mean values:
