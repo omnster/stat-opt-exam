@@ -1,0 +1,7 @@
+\begin{tikzpicture}
+  \draw [ BrickRed, fill = BrickRed!10] (0,0) circle [x radius=3cm, y radius = 12mm ] ;
+  \draw [ Green, fill = Green!10, fill opacity = .5] (0.2,0.2) circle [x radius=1.2cm, y radius = 5mm ] ;
+  \node at (0.2,0.2) {System} ;
+  \node at (0,-8mm) {Environment} ;
+\end{tikzpicture}
+

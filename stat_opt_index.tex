@@ -17,6 +17,13 @@
 \input{/home/omn/works/styles/latex/revtex4-1.tex}
 \input{/home/omn/works/tmp/newcommands.tex}
 
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikz/]
+\newcommand{\inputtikz}[1]{%
+  \tikzsetnextfilename{#1}%
+  \input{./tikz/#1.tikz}%
+}
+
 \usepackage{empheq}
 \definecolor{mygr}{rgb}{0,0,.9}
 \newcommand*{\mybx}[1]{\colorbox{mygr!15}{\hspace{1em}#1\hspace{1em}}}
@@ -612,12 +619,7 @@ The two most prominent approaches to open systems are
 
 \begin{figure}[htb]
   \centering
-  \begin{tikzpicture}
-    \draw [ BrickRed, fill = BrickRed!10] (0,0) circle [x radius=3cm, y radius = 12mm ] ;
-    \draw [ Green, fill = Green!10, fill opacity = .5] (0.2,0.2) circle [x radius=1.2cm, y radius = 5mm ] ;
-    \node at (0.2,0.2) {System} ;
-    \node at (0,-8mm) {Environment} ;
-  \end{tikzpicture}
+  \inputtikz{open_systems}
   \caption{Illustration of an open system being embedded into a larger system (environment).}
   \label{fig:opensys}
 \end{figure}

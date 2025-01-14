@@ -1,0 +1,43 @@
+  \begin{tikzpicture}[
+    mirror/.style={draw, fill=blue!5, minimum width = 3mm, minimum height = 1cm},
+    ]
+
+    \coordinate (im) at (0,0) ;
+    \coordinate (om) at (2,0) ;
+
+    \node [fill = red!20, minimum width = 2cm, minimum height = 7mm] at ($(im)!.5!(om)$) {} ;
+
+    \node [mirror] at (im) {} ;
+    \node [mirror] at (om) {} ;
+
+    {[xshift=1cm]
+      \node [circle,minimum size=3mm, draw , label = {[below, inner sep = 1em]Atom}] at (0,0) {} ;
+      % \draw [->] (-2mm,-2mm) -- ++ (4mm,4mm) ;
+    }
+
+
+    \coordinate (atLev) at (5,0) ;
+    \coordinate (hoLev) at (8,0) ;
+
+
+    \draw [ultra thick] (atLev) ++ (0, 3mm) coordinate (ee) -- node [at end, right]  {$\ket e$} ++ (1,0) ;
+    \draw [ultra thick] (atLev) ++ (0,-3mm) coordinate (eg) -- node [at end, right]  {$\ket g$} ++ (1,0) ;
+
+    \draw [<->] (ee) -- 
+      node [midway , left ] {$\omega_q$}
+      (eg) ;
+
+    \draw [ultra thick] (hoLev) ++ (0,-6mm) coordinate (h0) -- node [at end, right] {$\ket{0}$} ++ (1,0) ;
+    \draw [ultra thick] (hoLev) ++ (0,-2mm) coordinate (h1) -- node [at end, right] {$\ket{1}$} ++ (1,0) ;
+    \draw [ultra thick] (hoLev) ++ (0, 2mm) coordinate (h2) -- node [at end, right] {$\ket{2}$} ++ (1,0) ;
+    \draw [ultra thick] (hoLev) ++ (0, 6mm) coordinate (h3) -- 
+      node [midway, above] {\vdots} 
+      node [at end, right] {$\ket{3}$} ++ (1,0) ;
+
+    \draw [<->] (h0) -- node [midway , left ] {$\omega\s{cav}$} (h1) ;
+    \draw [<->] (h1) -- node [midway , left ] {$\omega\s{cav}$} (h2) ;
+    \draw [<->] (h2) -- node [midway , left ] {$\omega\s{cav}$} (h3) ;
+
+
+  \end{tikzpicture}
+
