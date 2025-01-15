@@ -391,6 +391,20 @@ The probability to obtain $n$ photons having a state $\ket{k}$ is quite straight
 where $\delta$ is the Kronecker delta-symbol.
 The probability is $1$ when $n = k$ and zero otherwise.
 
+The intensity autocorrelation for the Fock states reads
+\begin{empheq}[box=\mybx]{equation}
+  \label{eq:g2fock}
+  g^{(2)}_{\ket{k}}
+  = \frac{ \mel{ k }{ ( a \dg )^2 a^2 }{ k } }{ \mel{ k }{ a\dg a }{ k }^2 }
+  = \frac{ k ( k - 1 ) }{ k^2 } = 1 - \frac 1 k,
+\end{empheq}
+when $k \neq 0$.
+
+The intensity autocorrelation shows the probability of simultaneous detection of multiple photons.
+\cref{eq:g2fock} shows that for the Fock states it is suppressed.
+In particular, for $k = 1$, $g^{(2)}_{\ket 1} = 0$, so the probability of detection of multiple photons is zero.
+The corresponding effect is called \emph{anti-bunching} of photons.
+
 The wave-function of a Fock state in the position basis is (up to normalization)
 \begin{equation}
   \psi_n (q) = \braket{ q }{ n }
