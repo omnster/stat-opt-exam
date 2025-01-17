@@ -366,7 +366,7 @@ Either way, the Gaussian parameters of the resulting states will have a non-zero
   &
   \mmat V\s{DS} & =
   \begin{pmatrix}
-    \ee^{ - 2 r } & 0 
+    \ee^{ - 2 r } & 0
     \\
     0 & \ee^{ 2 r }
   \end{pmatrix}.
@@ -380,13 +380,22 @@ As we know, classical are the coherent states and their classical mixtures (equi
 All the remaining states are non-classical.
 Text-book examples of non-classical states are the Fock states.
 
-Fock states $\ket{k}$ are the energy levels of harmonic oscillator.
+Fock states $\ket{k}$ with $k = 0,1,2,\dots$ are the energy levels of harmonic oscillator.
+These states form an orthonormal basis (each state is normalized, and they are orthogonal to each other):
+\begin{equation}
+  \braket{ m }{ n } = \delta_{mn },
+\end{equation}
+where $\delta$ is the Kronecker delta-symbol.
+Any pure state $\ket \psi$ can be expanded over the basis of the Fock states:
+\begin{equation}
+  \ket{ \psi } = \sum_{n = 0}^\infty \braket{ n }{ \psi } \ket{n }
+  \equiv \sum_{n = 0}^\infty C_n \ket{ n }.
+\end{equation}
 
 The probability to obtain $n$ photons having a state $\ket{k}$ is quite straightforwardly,
 \begin{equation}
   p_n (k) = \delta_{nk },
 \end{equation}
-where $\delta$ is the Kronecker delta-symbol.
 The probability is $1$ when $n = k$ and zero otherwise.
 
 The intensity autocorrelation for the Fock states reads
