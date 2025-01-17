@@ -635,12 +635,351 @@ This Hamiltonian will be the starting point for the subsequent discussion.
 \subsection{Atom-light interaction: Rabi model} % <<<
 \label{sec:atom_light_interaction_rabi_model}
 
-The Rabi model assumes the light to be a classical field following a harmonic law:
+The Rabi model assumes the light to be a classical field following a harmonic law with amplitude $\bar \varepsilon$:
 \begin{equation}
-  ( \hat a + \hat a\dg ) = E(t) = \varepsilon \cos ( \omega\s{cav} t  ).
+   E(t) \propto ( \hat a + \hat a\dg ) = \bar \varepsilon \cos ( \omega\s{cav} t  ).
 \end{equation}
-The first term (the light Hamiltonian) can be discarded: if the field is classical, this first term will become simply a complex number.
+The first term in $\hat H\s{A-L}$ (the light Hamiltonian) can be discarded: if the field is classical, this first term will become simply a complex number.
 In all quantum pictures it will commute with every operator and will thus not contribute to the equations of motion.
+Therefore, the problem is now about only the two-level atom, as the dynamics of the light is assumed to be fully predetermined.
+The Hamiltonian reads
+\begin{equation}
+  \hat H\s{Rabi}
+  = \frac{ 1 }{ 2 } \hbar \omega_q \hat \sigma_z
+  + \hbar g \bar \varepsilon ( \hat \sigma_+ + \hat \sigma_- ) \cos ( \omega\s{cav} t ).
+\end{equation}
+
+To solve the dynamics of the atom, we will first consider the case of no interaction: $g \bar \varepsilon = 0$.
+The full Hamiltonian is simply $\hat H = \sfrac 12 \hbar \omega_q \hat \sigma_z$, and we can use the Schrödinger equation
+\begin{equation}
+  \ii \hbar \diff{}{t } \ket{ \psi (t) } = \hat H \ket{ \psi (t) }
+  =
+  \frac 12 \hbar \omega_q \hat \sigma_z \ket{ \psi }.
+\end{equation}
+We will use the following template for the wave function
+\begin{equation}
+  \ket{ \psi (t) } = c_e (t) \ket{ e } + c_g (t) \ket{ g }.
+\end{equation}
+We will also use the relations:
+\begin{gather}
+  \diff{}{t } \ket{ \psi (t) }
+  = \dot c_e (t) \ket{ e }
+  + \dot c_g (t) \ket{ g },
+  \\
+  \hat \sigma_z \ket{ e } = \ket{ e },
+  \qquad
+  \hat \sigma_z \ket{ g } = - \ket{ g }.
+\end{gather}
+Collecting everything together,
+\begin{equation}
+  \dot c_e (t) \ket{ e } + \dot c_g (t) \ket {g }
+  =
+  \frac{ 1 }{ \ii \hbar } \cdot \frac 12 \hbar \omega_q
+  \bigg[ c_e (t)\ket{ e } - c_g (t)\ket{ g } \bigg]
+  =
+  - \ii \frac{ \omega_q }{ 2 } [ c_e (t) \ket{ e } - c_g (t ) \ket { g } ].
+\end{equation}
+The vectors $\ket{g}$ and $\ket{e}$ form the basis, so we now collect the coefficients at this vectors in each side of the equation.
+Equivalently, we can multiply this equation by $\bra{e}$ or $\bra{g}$ which will eliminate the terms with, respectively, $\ket{g}$ or $\ket{e}$.
+So, after collecting the terms proportional to the basis vectors,
+\begin{align}
+  \dot c_e (t) & = - \ii c_e(t) \omega_q / 2 ,
+  &
+  \dot c_g (t) & = + \ii c_g(t) \omega_q / 2 .
+\end{align}
+This has the solution
+\begin{align}
+  c_e (t) & = c_e (0) \ee^{ - \ii \omega_q t / 2 },
+  &
+  c_g (t) & = c_g (0) \ee^{ \ii \omega_q t / 2 }.
+\end{align}
+So the wave-function of the atom evolves as
+\begin{equation}
+  \label{eq:qubit:nocoupling}
+  \ket{ \psi (t) }
+  =
+  c_e (0) \ee^{ - \ii \omega_q t / 2 } \ket{ e }
+  +
+  c_g (0) \ee^{ \ii \omega_q t / 2 } \ket{ g }.
+\end{equation}
+The initial values of the coefficients $c_{e,g }(0)$ can be determined from the initial condition $\ket{ \psi (0)}$.
+
+Now, to consider the model including the interaction, we will use the template
+\begin{equation}
+  \ket{ \psi (t) }
+  =
+  c_e (t) \ee^{ - \ii \omega_q t / 2 } \ket{ e }
+  +
+  c_g (t) \ee^{ \ii \omega_q t / 2 } \ket{ g }.
+\end{equation}
+Note that it is derived from~\cref{eq:qubit:nocoupling} by replacing $c_{e,g } (0) \mapsto c_{e,g } (t)$.
+We will substitute this template into the Schrödinger equation
+\begin{equation}
+  \diff{}{ t} \ket{ \psi(t) }
+  = \frac{ 1 }{ \ii \hbar }
+  \left[
+    \frac 12 \hbar \omega_q \hat \sigma_z
+    +
+    \hbar \epsilon ( \hat \sigma_+ + \hat \sigma_- )
+    \cos ( \omega\s{cav} t )
+  \right]
+  \ket{ \psi (t) }.
+\end{equation}
+
+Now, we compute:
+\begin{gather}
+  \label{eq:rabi:lhs}
+  \diff{}{ t } \ket{ \psi (t) }
+  =
+  \left( \dot c_e (t) - \frac{ \ii \omega_q  }{ 2 } c_e (t) \right) \ee^{ - \ii \omega_ q t / 2 } \ket{ e }
+  +
+  \left( \dot c_g (t) + \frac{\ii \omega_q}{2} c_g (t)\right) \ee^{ \ii \omega_ q t / 2 } \ket{ g },
+  \\
+  %%
+  %%
+  \label{eq:rabi:own}
+  \frac{ 1 }{ \ii \hbar } \frac 12 \hbar \omega_q \hat \sigma_z \ket{ \psi (t) }
+  = - \ii \frac{ \omega_ q }{ 2 }
+  \left[
+    c_e (t) \ee^ { - \ii \omega_q t / 2 }  \ket{ e }
+    - c_g (t ) \ee^ { \ii \omega_q t / 2 } \ket { g }
+  \right],
+  \\
+  \frac{ 1 }{ \ii \hbar } \cdot \hbar \epsilon ( \hat \sigma_+ + \hat \sigma_- )
+  \ket{ \psi (t) }
+  =
+  - \ii \epsilon
+  \left[
+  c_g (t) \ee^{ \ii \omega_q t / 2 } \ket{ e }
+  +
+  c_e (t) \ee^{ - \ii \omega_q t / 2 } \ket{ g }
+  \right].
+\end{gather}
+In the last line, we skipped $\cos( \omega\s{cav} t )$ on both sides for brevity.
+
+Now, collecting everything together, we note that the terms with $c_{e,g}$ in~\cref{eq:rabi:lhs,eq:rabi:own} cancel each other.
+The Schrödinger equation then reads
+\begin{equation}
+  \dot c_e (t) \ee^{ - \ii \omega_q t / 2 } \ket{ e }
+  +
+  \dot c_g (t) \ee^{ \ii \omega_q t / 2 } \ket{ g } =
+  - \ii \epsilon \cos ( \omega\s{cav} t )
+  \left[
+  c_g (t) \ee^{ \ii \omega_q t / 2 } \ket{ e }
+  +
+  c_e (t) \ee^{ - \ii \omega_q t / 2 } \ket{ g }
+  \right].
+\end{equation}
+To simplify this equation a bit, we multiply both sides by $\ee^{ - \ii \omega_ q t / 2 }$:
+\begin{equation}
+  \dot c_e (t) \ee^{ - \ii \omega_q t} \ket{ e }
+  +
+  \dot c_g (t) \ket{ g } =
+  - \ii \epsilon
+  \cos( \omega\s{cav} t )
+  % \frac{ \ee^{ \ii \omega\s{cav} t } + \ee^{ - \ii \omega\s{cav} t }}{ 2 }
+  \left[
+  c_g (t) \ket{ e }
+  +
+  c_e (t) \ee^{ - \ii \omega_q t } \ket{ g }
+  \right],
+\end{equation}
+% where we also used $\cos( x ) = \frac 12 [ \ee^{ \ii x } + \ee^{ - \ii x }]$.
+Now, as previously, we collect the terms at $\ket{ e}$ and $\ket{ g }$, which gives us the equations
+\begin{align}
+  \dot c_e (t) \ee^{ - \ii \omega_q  t }
+  & =
+  - \ii \epsilon \cos ( \omega\s{cav} t ) c_g (t)
+  \\
+  \dot c_g (t)
+  & =
+  - \ii \epsilon \cos ( \omega\s{cav} t ) c_e (t) \ee^{ - \ii\omega_q t }.
+\end{align}
+At this point, we expand the cosine as $\cos x = ( \ee^{ \ii x } + \ee^{ - \ii x } ) / 2 $, and rewrite the equations as
+\begin{align}
+  \label{eq:rabi:cedot}
+  \dot c_e (t) & =
+  - \ii \epsilon c_g (t)
+  \left[
+    \ee^{ - \ii ( \omega\s{cav} - \omega_q ) t }
+    +
+    \ee^{ \ii ( \omega\s{cav} + \omega_q ) t }
+  \right]
+  \approx
+  - \ii \epsilon c_g (t) \ee^{ - \ii \delta t }
+  ,
+  \\
+  \dot c_g (t) & =
+  - \ii \epsilon c_e (t)
+  \left[
+    \ee^{ \ii ( \omega\s{cav} - \omega_q ) t }
+    +
+    \ee^{ - \ii ( \omega\s{cav} + \omega_q ) t }
+  \right]
+  \approx
+  - \ii \epsilon c_e (t) \ee^{ \ii \delta t }
+  ,
+\end{align}
+where we introduced the detuning $\delta = \omega\s{cav} - \omega_q$, and used the so-called \emph{Rotating wave approximation (RWA)} to write the approximate expressions on the right-hand side.
+For the approximation, we ignore the fast terms $\propto \ee^{ \ii ( \omega\s{cav} + \omega_q ) t }$  and keep only the slow terms $\propto \ee^{ \ii ( \omega\s{cav} - \omega_q ) t }$.
+
+For the further simplification, we want to get rid of the explicit time dependence in the equations, so we guess the substitution
+\begin{align}
+  c_e (t)  & = a(t) \ee^{ - \ii \delta t / 2 },
+  &
+  c_g (t)  & = b(t) \ee^{ \ii \delta t / 2 },
+\end{align}
+where $a,b$ are some complex-valued functions of time.
+From this follows
+\begin{align}
+  \dot c_e (t) & = ( \dot a (t) - \ii \delta a(t) / 2 ) \ee^{ - \ii \delta t / 2 },
+  &
+  \dot c_g (t) & = ( \dot b (t) + \ii \delta b(t) / 2 ) \ee^{ - \ii \delta t / 2 }.
+\end{align}
+Substituting these into the previous equations:
+\begin{align}
+  ( \dot a (t) - \ii \delta a(t) / 2 ) \ee^{ - \ii \delta t / 2 }
+  & =
+  - \ii \epsilon b (t) \ee^{ - \ii \delta t / 2 },
+  \\
+  ( \dot b (t) + \ii \delta b(t) / 2 ) \ee^{ \ii \delta t / 2 }
+  & =
+  - \ii \epsilon a (t) \ee^{ \ii \delta t / 2 },
+\end{align}
+so the time-dependent exponentials vanish.
+At this point we also introduce the notation for the so-called \emph{Rabi} frequency
+\begin{empheq}[box=\mybx]{equation}
+  \Omega\s{R} = 2 \epsilon = \frac{ d \cdot E }{ \hbar }.
+\end{empheq}
+Remember that $\epsilon$ was derived from the energy of the two-level atom in the field, as a product of the atom's dipole moment times the field amplitude.
+If we carefully followed the definitions, we'd arrived to the text-book definition of the Rabi frequency which is written above.
+
+Again, equations of motion
+\begin{align}
+  \dot a(t) & = \ii \frac{ \delta }{ 2 } a(t) - \ii \frac{ \Omega\s{R} } 2 b(t),
+  \\
+  \dot b(t) & = - \ii \frac{ \Omega\s{R} }{ 2 } a(t) - \ii \frac{\delta} 2 b(t),
+\end{align}
+or in matrix form
+\begin{equation}
+  \diff{ }{t }
+  r(t)
+  \equiv
+  \diff{ }{t }
+  \begin{pmatrix}
+    a(t) \\ b(t)
+  \end{pmatrix}
+  =
+  \frac{ \ii }{ 2 }
+  \begin{pmatrix}
+    \delta & - \Omega\s{R}
+    \\
+    - \Omega\s{R} & - \delta
+  \end{pmatrix}
+  \begin{pmatrix}
+    a(t) \\ b(t)
+  \end{pmatrix}
+  \equiv
+  \ii A r,
+\end{equation}
+where
+\begin{align}
+  r(t) & = ( a(t) , b(t) ) ^\intercal,
+  &
+  A & =
+  \frac{ 1 }{ 2 }
+  \begin{pmatrix}
+    \delta & - \Omega\s{R}
+    \\
+    - \Omega\s{R} & - \delta
+  \end{pmatrix}
+\end{align}
+
+We are searching for the solution in the form $r(t) = (a(t), b(t))^\intercal = (a_0 , b_0) \ee^{ \ii \lambda t }$, correspondingly $\dot r(t) = \ii \lambda r(t)$, therefore,
+\begin{align}
+  \ii \lambda r & = \ii A r
+  &
+  \Longrightarrow
+  A - \lambda I & = 0
+  &
+  \Longrightarrow
+  \det( A - \lambda I ) = 0.
+\end{align}
+
+This gives us the equation for the frequencies $\lambda$:
+\begin{equation}
+  \det( A - \lambda I )
+  =
+  \left( \frac{ \delta }{ 2 } - \lambda \right)\left( - \frac{ \delta }{ 2 } - \lambda \right)
+  - \left( \frac{ \Omega\s{R} }{ 2 }  \right)^2
+  = \lambda^2 - \left( \frac{ \delta }{ 2 } \right)^2 - \left( \frac{ \Omega\s{R} }{ 2 } \right)^2 = 0.
+\end{equation}
+Finally,
+\begin{equation}
+  \lambda_{1,2 } = \pm \frac \Omega 2 = \pm \frac 12 \sqrt{ \delta^2 + \Omega\s{R}^2 }.
+\end{equation}
+and $a(t) = a_1 \ee^{ \ii \Omega t / 2 } + a_2 \ee^{ - \ii \Omega t / 2}$ (same for $b(t)$).
+Then,
+\begin{align}
+  c_e (t) & = [
+  a_1 \ee^{ \ii \Omega t / 2 }
+  +
+  a_2 \ee^{ - \ii \Omega t / 2 }
+  ] \ee^{ - \ii \delta t / 2 },
+  \\
+  c_g (t) & = [
+  b_1 \ee^{ \ii \Omega t / 2 }
+  +
+  b_2 \ee^{ - \ii \Omega t / 2 }
+  ] \ee^{ + \ii \delta t / 2 }.
+\end{align}
+The coefficients $a_{1,2}$ and $b_{1,2}$ are determined from the initial conditions:
+\begin{align}
+  a_1 & = \frac{ 1 }{ 2 \Omega } [ ( \Omega + \delta ) c_e (0) + \Omega\s{R} c_g (0) ], &
+  a_2 & = \frac{ 1 }{ 2 \Omega } [ ( \Omega - \delta ) c_e (0) - \Omega\s{R} c_g (0) ],
+  \\
+  b_1 & = \frac{ 1 }{ 2 \Omega } [ ( \Omega - \delta ) c_g (0) + \Omega\s{R} c_e (0) ], &
+  b_2 & = \frac{ 1 }{ 2 \Omega } [ ( \Omega + \delta ) c_g (0) - \Omega\s{R} c_e (0) ].
+\end{align}
+At this point I'm copying the text-book by Scully \& Zubairy ``Quantum Optics''.
+
+One important quantity is the \emph{inversion}, which equals the probability for the atom to be in the excited state minus the probability to be in the ground state, that is
+\begin{equation}
+  W(t) = \abs{ c_e (t) }^2 - \abs{ c_g (t) }^2 =
+  \frac{ \delta^2 - \Omega\s{R}^2 }{ \Omega^2 } 
+  \sin^2 \left( \frac{ \Omega t }{ 2 } \right) +
+  \cos^2 \left( \frac{ \Omega t }{ 2 } \right).
+\end{equation}
+
+A simpler solution can be written when the atom is initially in the ground state: $c_g (0) = 1$, $c_e (0) = 0$.
+In this case the solutions for $c_{e,g }$ are simplified.
+In particular,
+\begin{equation}
+  c_e (t)
+  = \frac{ \Omega\s{R} }{ 2 \Omega } ( \ee^{ \ii \Omega t / 2 } - \ee^{- \ii \Omega t /2 } )
+  = \ii \frac{ \Omega\s{R} }{  \Omega } \sin \left( \frac{ \Omega t }{ 2 } \right).
+\end{equation}
+The probability of the atom to be in the excited state equals
+\begin{equation}
+  P_e(t) = \abs{ c_e (t) }^2 = \frac{ \Omega\s{R}^2 }{ \Omega\s{R}^2 + \delta^2 } \sin^2 \left( \frac{ \Omega t }{ 2 } \right).
+\end{equation}
+Some sources call $\dfrac \Omega  2 $ the \emph{Rabi frequency}.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.49\linewidth]{plt_rabi.pdf}
+  \caption{Rabi oscillations of the excited level population as a function of time, for different values of the detuning $\delta$.}
+  \label{fig:plt_rabi-pdf}
+\end{figure}
+The oscillatory dependence of the inversion and of the excited state population $P_e$ on time is called \emph{Rabi oscillations}.
+Its example is illustrated in~\cref{fig:plt_rabi-pdf}.
+
+
+
+% >>>
+\subsection{Atom-light interaction: Jaynes-Cummings model} % <<<
+\label{sec:atom_light_interaction_jaynes_cummings_model}
+
 
 % >>>
 \subsection{Open quantum systems: General notes} % <<<
