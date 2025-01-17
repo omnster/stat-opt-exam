@@ -1,0 +1,17 @@
+\begin{tikzpicture}[lev/.style={ultra thick}]
+
+  \draw [lev] (0,0) -- node [midway, below] {$\ket{g, n-1}$} + (.7,0) 
+    ++ (1.2, .2) -- node [midway, below] {$\ket{g, n}$} + (.7,0) 
+    ++ (1.2, .2) -- node [midway, below] {$\ket{g, n+1}$} + (.7,0) ;
+
+  \draw [lev] (0,1) -- node [midway, above] {$\ket{e, n-1}$} + (.7,0) 
+    ++ (1.2, .2) -- node [midway, above] {$\ket{e, n}$} + (.7,0) 
+    ++ (1.2, .2) -- node [midway, above] {$\ket{e, n+1}$} + (.7,0) ;
+
+  \node at (-1,0) {$\dots$} ;
+  \node at (4,1) {$\dots$} ;
+
+  \draw [<->, double]  (.35,1) -- ++ (1.2,-0.8)  ;
+  \draw [<->, double]  (.35,1) ++ (1.2, .2) -- ++ (1.2,-0.8)  ;
+\end{tikzpicture}
+

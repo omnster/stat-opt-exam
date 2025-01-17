@@ -624,6 +624,7 @@ The scalar product of these two quantities will contribute to the coupling rate 
 
 Collecting together the parts of the atom-light Hamiltonian, we can finally write the full Hamiltonian:
 \begin{empheq}[box=\mybx]{equation}
+  \label{eq:atom-light}
   \hat H\s{A-L} =
   \hbar \omega\s{cav} \hat a \dg \hat a
   + \frac 12 \hbar \omega_q \hat \sigma_z
@@ -973,13 +974,157 @@ Some sources call $\dfrac \Omega  2 $ the \emph{Rabi frequency}.
 \end{figure}
 The oscillatory dependence of the inversion and of the excited state population $P_e$ on time is called \emph{Rabi oscillations}.
 Its example is illustrated in~\cref{fig:plt_rabi-pdf}.
-
-
+Note that the Rabi oscillations in this form require driving.
 
 % >>>
 \subsection{Atom-light interaction: Jaynes-Cummings model} % <<<
 \label{sec:atom_light_interaction_jaynes_cummings_model}
 
+The Jaynes-Cummings model starts from the Hamiltonian~\cref{eq:atom-light} keeping the quantum treatment for both light and the atom.
+\begin{equation}
+  \hat H\s{A-L} = \hbar \omega\s{cav} \hat a\dg \hat a
+  + \frac 12 \hbar \omega_q \hat \sigma_z
+  + \hbar g ( \hat \sigma_+ + \hat \sigma_- ) ( \hat a \dg + \hat a ).
+\end{equation}
+For a simplification, we will go to the \emph{rotating frame} defined by the two terms in the Hamiltonian.
+Practically, this means that we remove these first two terms from the Hamiltonian, and in what remains, we substitute the operators with their solutions corresponding to the removed terms.
+For example, if there was no coupling ($g = 0$), for the light we'd have
+\begin{align}
+  \hat H & = \hbar \omega\s{cav} \hat a \dg \hat a
+  & \Rightarrow &&
+  \dot{ \hat a } & = - \ii \omega\s{cav} \hat a
+  & \Rightarrow &&
+  \hat a (t) & = \hat a_0 \ee^ { - \ii \omega\s{cav} t }.
+\end{align}
+Going to rotating frame is equivalent to introducing a new operator  $\hat a'(t) = \hat a_0$, so that $\hat a (t) = \hat a'(t) \ee^{ - \ii \omega\s{cav} t }$.
+Similarly,
+\begin{align}
+  \hat \sigma_+ (t) & = \hat \sigma_+' (t) \ee^{ \ii \omega_q t },
+  &
+  \hat \sigma_- (t) & = \hat \sigma_-' (t) \ee^{ - \ii \omega_q t }.
+\end{align}
+Substituting this into the atom-light Hamiltonian, we obtain
+\begin{equation}
+  \hat H' = \hbar g 
+  \left( \hat \sigma_+' \ee^{ \ii \omega_ q t } + \hat \sigma_-' \ee^{ - \ii \omega_q t } \right)
+  \left( \hat a'{} \dg \ee^{ \ii \omega\s{cav} t } + \hat a' \ee^{ - \ii \omega\s{cav} t }  \right).
+\end{equation}
+If we expand the brackets, we'd have four terms proportional to $\ee^{ \pm \ii ( \omega\s{cav} \pm \omega_q ) t }$.
+Of these terms we keep only the slowly oscillating ones, that is, those with $\ee^{ \pm \ii (\omega\s{cav} - \omega_q ) t }$.
+This is called the \emph{Rotating wave approximation (RWA)} (not to be confused with going to \emph{rotating frame}).
+Denoting $\delta = \omega\s{cav} - \omega_q$, and removing primes ($a' \mapsto a$), we can write the Jaynes-Cummings Hamiltonian:
+\begin{equation}
+  \hat H\s{JC} = \hbar g
+  \left(
+  \hat \sigma_+ \hat a \ee^{ - \ii ( \omega\s{cav} - \omega_q ) t }
+  +
+  \hat \sigma_- \hat a\dg \ee^{ \ii ( \omega\s{cav} - \omega_q ) t }
+  \right)
+  \stackrel{ \delta = 0 }{=}
+  \hbar g \left( \hat \sigma_+ \hat a + \hat \sigma_- \hat a\dg \right).
+\end{equation}
+The resonant case $\delta = 0$ is much simpler than the general case, so we will consider it now.
+
+\begin{figure}[htb]
+  \centering
+  \inputtikz{jaynes-cummings}
+  \caption{Schematic of some energy levels for the Jaynes-Cummings model.
+    $e,g$ are the excited and ground states of the bare atom, $\ket{n}$ are the Fock states of the field.
+    Possible transitions shown by lines with arrows.
+    Note that the scheme continues to the right infinitely, and to the left until the ground state $\ket{0}$ of the field is reached.
+  }
+  \label{fig:jc:ladder}
+\end{figure}
+
+Note that in the Hamiltonian $\hat H\s{JC}$, the total number of excitations is preserved.
+That is, the term $\hat \sigma_+ \hat a$ creates an excitation of the atom and annihilates a photon.
+The term $\hat \sigma_- \hat a\dg$ creates a photon by annihilating an excitation of the atom.
+So the Hamiltonian can enable transitions $\ket{e}\ket{n} \leftrightarrow \ket{g}\ket{ n+ 1}$.
+The scheme of energy levels and possible transitions is visualized in~\cref{fig:jc:ladder}.
+
+The atom has two basis states, $\ket{g}$ and $\ket{e}$.
+The field has infinitely many basis states, the Fock states with $k$ photons: $\ket{k}$ with $k = 0,1,2,\dots$.
+The system "atom+field" has the basis formed by the \emph{outer product} of the basis states of the subsystems.
+We denote these product states as e.g. $\ket{g}\ket{k}$, or for simplicity $\ket{ g , k }$ for the state in which the atom is in the ground state and the field has $k$ photons.
+
+To solve the dynamics of the system, it is natural to expand the wave-function in the basis of the states $\ket{(e/g), k}$
+\begin{equation}
+  \label{eq:jc:anzats}
+  \ket{ \psi (t) } = \sum_{ k =0 }^\infty
+  \left[ c_k^{(e)} (t) \ket{ e , k } + c_k^{(g)} (t) \ket{ g , k } \right],
+\end{equation}
+and substitute it into the Schrödinger equation, as we did for the Rabi model.
+This time, there are many more coefficients $c$, however, due to the structure of the possible transitions $\ket{ e, n} \leftrightarrow \ket{ g , n + 1 }$, the equations for different coefficients will be split into uncoupled pairs of coupled equations.
+For example,
+\begin{multline}
+  \ii \hbar \left( \dots + \dot c_k^{(e)} \ket{ e, k }
+  + \dot c_{k+1}^{(g)} \ket{ g , k + 1 } + \dots \right)
+  =
+  \hbar g \left( 
+    \dots +
+    c_k ^{(e)} \hat \sigma_- \hat a\dg \ket{ e , k }
+    +
+    c_{k+1}^{(g)} \hat \sigma_+ \hat a \ket{ g , k + 1 }
+  + \dots \right)
+  \\
+  =
+  \hbar g \left( \dots +
+    c_k ^{(e)} \sqrt{ k + 1 } \ket{ g , k + 1 }
+    +
+  c_{k+1}^{(g)} \sqrt{ k + 1 } \ket{ e , k } + \dots \right). 
+\end{multline}
+It is possible to show that there will be no other terms proportional to $\ket{ e, k }$ and $\ket{ g , k + 1}$ in the Schrödinger equation.
+Therefore, for this pair of coefficients we have the equations
+\begin{align}
+  \dot c_k ^{(e)} &
+  = - \ii g \sqrt{ k + 1 } c_{k+1}^{(g)}
+  = - \ii \lambda c_{k+1}^{(g)},
+  \\
+  \dot c_{k+1}^{(g)} &
+  = - \ii g \sqrt{ k + 1 } c_ k^{(e)}
+  = - \ii \lambda c_ k^{(e)},
+\end{align}
+where we denoted $\lambda = g\sqrt{ k +1 }$.
+
+We take the derivative of the first equation above:
+\begin{equation}
+  \ddot c_k ^{(e)} = - \ii \lambda ( \dot c_{k + 1 }^{(g)} )
+  =
+  - \ii \lambda ( - \ii \lambda c_k ^{(e)} )
+  =
+  - \lambda^2 c_k ^{(e)}.
+\end{equation}
+This is the classical equation of a harmonic oscillator, so we can immediately write the solution
+\begin{empheq}[box=\mybx]{align}
+  c_k^{(e)} (t) & = c_k ^{(e)} (0) \cos ( \lambda t  )- \ii c_{ k + 1}^{(g)} (0) \sin ( \lambda t  ),
+  \\
+  c_{ k + 1 }^{(g)} (t) & = 
+  c_{ k + 1 }^{(g)} (0) \cos ( \lambda t ) - \ii c_{k }^{(e)} (0) \sin( \lambda t ).
+\end{empheq}
+The solution shows that the levels $\ket{ e , k } \leftrightarrow \ket{ g , k + 1 }$ exchange the population at rate $\lambda$:
+\begin{equation}
+  \lambda(k) = g \sqrt{ k + 1 }.
+\end{equation}
+This quantity is sometimes called \emph{quantum electrodynamic Rabi frequency}.
+It is important to note that it depends on the number of photons $k$ in the field.
+
+Importantly, the solution for the coefficients $c$ is true for all $k$.
+In particular, we can consider a simple case when initially the atom is in the excited state, and the field has no photons.
+The initial state of the system is thus
+\begin{equation}
+  \ket{ \psi (0) } = \ket{ e, 0 },
+\end{equation}
+and all the coefficients in the expansion~\eqref{eq:jc:anzats} are zero, except
+\begin{equation}
+  c_0^{(e)} = 1.
+\end{equation}
+Therefore, the solution for the other coefficients will be
+\begin{align}
+  c_0^{(e)} (t) & = \cos(  \lambda t ),
+  &
+  c_1^{(g)} (t) & = - \ii \sin ( \lambda t ).
+\end{align}
+In this case, we will see a single excitation being transferred following the harmonic law, between the atom and the field: the initial excitation of the atom, after $t = \pi / ( 2 \lambda)$ will become a photon, and so on.
 
 % >>>
 \subsection{Open quantum systems: General notes} % <<<
