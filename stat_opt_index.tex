@@ -1162,7 +1162,220 @@ The two common approaches to open systems are
 \end{figure}
 
 % >>>
+\subsection{Langevin equations} % <<<
+\label{sec:langevin_equations}
 
+We first consider the possibility to take into account the damping when describing a harmonic oscillator.
+In absence of the damping, the Hamiltonian of a Harmonic oscillator
+\begin{equation}
+  \hat H\s{HO} = \hbar \omega \hat a \dg \hat a.
+\end{equation}
+
+The corresponding Heisenberg equation of motion for the annihilation operator
+\begin{equation}
+  \dot{ \hat a } = - \ii \omega \hat a.
+\end{equation}
+Naively adding dissipation (at rate $\gamma$), as in classical physics:
+\begin{equation}
+  \dot{ \hat a } = - \ii \omega \hat a - \gamma \hat a,
+\end{equation}
+will cause $a(t ) \stackrel{ t \to \infty }{ \to } 0$, which would break the canonical commutation relations (that must universally hold):
+\begin{equation}
+  \comm{ \hat a }{ \hat a\dg } = 1.
+\end{equation}
+
+To propertly account for the dissipation, we take into account the fact that the dissipation is caused by coupling to the environment, which we will model as a continuum of harmonic oscillators:
+\begin{equation}
+  \hat H\s{bath} = \int_B \dl{ \Omega} \: \hbar \Omega \hat b_\Omega\dg \hat b,
+\end{equation}
+where $B$ denotes the region of frequencies occupied by the bath oscillators.
+We also assume uniform distribution of the bath oscillators across frequencies.
+Note that the integral here symbolizes summation over different frequencies, this is not a Fourier transform.
+
+The system-bath coupling is assumed to be of the excitation-hopping type
+\begin{equation}
+  \hat H\s{S-b} =  \int_B \dl{ \Omega} \: \hbar \kappa( \Omega )
+  ( \hat b_\Omega\dg \hat a + \hat b_\Omega \hat a \dg ),
+\end{equation}
+with the interaction strength $\kappa (\Omega)$.
+
+The full Hamiltonian of the system+bath reads
+\begin{equation}
+  H\s{full} = \hat H\s{HO} + \hat H \s{bath} + \hat H \s{S-b }.
+\end{equation}
+
+We use this Hamiltonian to write the Heisenberg equations of motion for the operators $\hat a$ and $\hat b_\Omega$:
+\begin{align}
+  \dot { \hat a } (t) & = - \ii \omega \hat a (t)
+  + \ii \int_B \dl{ \Omega } \: \kappa ( \Omega ) \hat b_{\Omega} (t),
+  \\
+  \dot { \hat b } _\Omega (t) & = - \ii \Omega \hat b_\Omega (t) + \ii \kappa ( \Omega ) \hat a (t) .
+\end{align}
+Now, we can formally solve the equation for $\hat b_\Omega (t)$:
+\begin{equation}
+  \hat b_\Omega (t) = \hat b_\Omega (0) \ee^{ - \ii \Omega t }
+  + \ii \kappa ( \Omega )
+  \int_0^t \dl{s} \: e^{ - \ii \Omega t } \hat a (s),
+\end{equation}
+and substitute the solution into the equation for $\dot a$:
+\begin{equation}
+  \dot{ \hat a } (t) = - \ii \omega a (t)
+  +
+  \ii \int_B \dl{ \Omega } \: \kappa ( \Omega ) \hat b_\Omega (0) \ee^{ - \ii \Omega t }
+  - \int_ B \dl{ \Omega } \: \kappa^2 ( \Omega ) \int_0^t \dl{ s } \: \ee^{ - \ii \Omega t } \hat a (s).
+\end{equation}
+The important thing to understand about this equation, is that in the right-hand side there are the forces that are acting on the oscillator at the time $t$.
+The first term describes the usual restoring force that is present without the dissipation.
+The second term collects all $\hat b_\Omega$ and represents the fluctuational force that acts on the oscillator from the bath.
+The third term involves the operator of the oscillator $\hat a$ integrated over some time preceding the current time.
+So if we evaluate the force at time $t$, this integration is performed over some time before $t$.
+This last term represents the \emph{memory of the bath}.
+
+It is quite typical in quantum optics to do the \emph{first Markov approximation}, which assumes that the bath has no memory.
+Then, the kernel of the last integral becomes a delta-function, and the force from the bath becomes proportional to the instantaneous value of the system operator:
+\begin{equation}
+  - \int_ B \dl{ \Omega } \: \kappa^2 ( \Omega ) \int_0^t \dl{ s } \: \ee^{ - \ii \Omega t } \hat a (s)
+  \mapsto - \Gamma \hat a (t).
+\end{equation}
+The first Markov approximation also involves setting $\kappa(\Omega)$ to be independent of frequency $\kappa^2 (\Omega ) = 2 \Gamma$.
+
+The remaining term in the equation is rewritten as a fluctuational force:
+\begin{equation}
+  \ii \int_B \dl{ \Omega } \: \kappa ( \Omega ) \hat b_\Omega (0) \ee^{ - \ii \Omega t }
+  = \sqrt{ 2 \Gamma } \hat b\up{in} (t).
+\end{equation}
+
+With this, we arrive to the so-called \emph{Heisenberg-Langevin} equation
+\begin{equation}
+  \dot{ \hat a } (t) = - \ii \omega \hat a (t) - \Gamma \hat a (t) + \sqrt{ 2 \Gamma } \hat b\up{in} (t).
+\end{equation}
+
+Its solution requires knowing the statistics of the fluctuational force $\hat b\up{in} (t)$.
+There are many different possible statistics for this force.
+Typically in quantum optics, this force is in a thermal state with the correlation function
+\begin{equation}
+  \ev{ ( \hat b \up{in } )\dg (t)  \hat b \up{in } (t') } = n\s{in} \delta ( t - t'),
+\end{equation}
+where $n\s{in}$ is the thermal occupation number, determined by the temperature of the environment (see~\cref{sec:thermal_states}).
+
+% >>>
+\subsection{Lindblad master equation} % <<<
+\label{sec:lindblad_master_equation}
+
+To write the Lindblad master equation, we start again from the total Hamiltonian:
+\begin{equation}
+  \hat H\s{tot} = \hat H\s{Sys} + \hat H\s{bath} + \hat H \s{S-b}.
+\end{equation}
+
+We write the von Neumann equation for the density matrix
+\begin{equation}
+  \dot{ \hat \rho }\s{tot} (t) =
+  - \frac{ \ii }{ \hbar } \comm{ \hat H\s{tot} }{ \hat \rho\s{tot} (t) }.
+\end{equation}
+
+The equation of motion for the density matrix of the system  $\hat \rho (t)$ reads
+\begin{empheq}[box=\mybx]{equation}
+  \dot{ \hat \rho} (t) =
+  - \frac{ \ii }{ \hbar } \comm{ \hat H\s{Sys} }{ \rho (t) }
+  +
+  \sum_n
+  \frac 12
+  \left[ 2 \hat C_n \hat \rho (t) \hat C_n \dg - \hat \rho (t) \hat C_n \dg \hat C_n - \hat C_n \dg \hat C_n \hat \rho (t) \right],
+\end{empheq}
+where $\hat C_n = \sqrt{ \gamma_n } \hat A_n$ are the \emph{collapse operators}, and $\hat A_n$ are the operator through which the environment couples to the system at rates $\gamma_n$.
+
+This equation is called \emph{Lindblad master equation} and its derivation requires
+\begin{itemize}
+  \item that there are no correlations between the system and the bath: $\rho\s{tot} (t) = \rho (t) \otimes \rho\s{bath} (t)$.
+  \item \emph{Markov approximation}: bath has no memory, all the information flowing from the system to the bath is immediately dissipated
+  \item \emph{Born approximation}: the state of the bath is not significantly impacted by the coupling to the system
+  \item \emph{secular approximation}: fast rotating terms can be ignored.
+\end{itemize}
+
+\subsubsection{Lindblad master equation for a damped harmonic oscillator} % <<<
+\label{sec:example_of_lindblad_master_equation}
+
+For a harmonic oscillator coupled to a thermal bath with mean occupation $m$ at rate $\gamma$, the collapse operators are
+\begin{empheq}[box=\mybx]{align}
+  \hat C_1 & = \sqrt{ \gamma ( m + 1 ) } \: \hat a,
+  &
+  \hat C_2 & = \sqrt{ \gamma m }\: \hat a\dg.
+\end{empheq}
+In particular, for the light fields at room temperature, $m \approx 0$, and only one collapse operator survives:
+\begin{equation}
+  \hat C_1 = \sqrt{ \gamma } \hat a .
+\end{equation}
+
+% >>>
+\subsubsection{Lindblad master equation for a two-level system (qubit)} % <<<
+\label{sec:lindblad_master_equation_for_a_two_level_system_qubit_}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.49\linewidth]{./fig/dephasing.png}
+  \caption{Illustration of dephasing of a qubit.
+    Two trajectories start on the surface of the Bloch sphere and evolve towards the axis $z = 0$.
+  Note that since the collapse operator is $\sigma_z$, the $z$ component of the spin is unchanged. }
+  \label{fig:-fig-dephasing-png}
+\end{figure}
+
+For two-level systems (qubits), the primary channels of decoherence, are dephasing and relaxation.
+\begin{itemize}
+  \tightlist
+  \item \emph{Dephasing} with the corresponding collapse operator $C\s{deph} = \sqrt{ \gamma\s{deph} } \sigma_z$.
+  This process leads to loss of transverse coherence (in $xy$ plane), with the characteristic time $T_2 \propto \gamma\s{deph} ^{-1}$.
+  See~\cref{fig:-fig-dephasing-png} for illustration of dephasing of a qubit.
+  \item \emph{Relaxation} which is the process of losing energy to the environment, with the collapse operator $C\s{relax} = \sqrt{ \gamma } \ketbra{ g }{ e } =\sqrt{ \gamma } \sigma_-$.
+  This process leads to longitudinal relaxation (decreasing energy), associated time is $T_1 \propto \gamma ^{-1}$.
+\end{itemize}
+
+
+% >>>
+
+% >>>
+\subsection{Bloch-Redfield master equation} % <<<
+\label{sec:bloch_redfield_master_equation}
+
+Bloch-Redfield master equation is derived perturbatively from the system-bath von Neumann equation.
+The Hamiltonian of the system + environment is written as
+\begin{equation}
+  \hat H = \hat H\s{S} + \hat H\s{E} + \sum_\alpha \hat A_\alpha \otimes \hat B_\alpha,
+\end{equation}
+where the operators $\hat A_\alpha$ and $\hat B_\alpha$ belong to the system and environment, respectively.
+
+The Bloch-Redfield master equation is written as
+\begin{empheq}[box=\mybx]{equation}
+  \dot \rho_{ab } (t) = - \ii \omega_{ab } \rho_{ab } (t)
+  +
+  \sum_{c,d } R_{abcd } \rho_{cd } (t),
+\end{empheq}
+where the following notations are used.
+Energy levels of the bare system Hamiltonian are denoted $\ket{ \omega_a }$ such that
+\begin{equation}
+  \hat H\s{S} \ket{ \omega_a } = \hbar \omega_a \ket{ \omega_a }.
+\end{equation}
+The quantity $\rho_{ab }$ is the density matrix of the system written in the basis of the energy levels $\ket{ \omega_a }$.
+The \emph{Bloch-Redfield tensor} $R_{abcd }$ is constructed from the operators $\hat A_\alpha$ that describe coupling to the environment, and the noise power spectra of the bath operators $\hat B_\alpha$.
+The full expression is
+\begin{equation}
+    \label{eq:BR_tensor}
+    \begin{split}
+    R_{abcd} = -\frac{1}{2\hbar^2}\sum_{\alpha,\beta}\bigg\{ &\delta_{bd}\sum_{n=1}^{\mathrm{dim}_\mathrm{S}} 
+    A_{an}^{(\alpha)}A_{nc}^{(\beta)} S_{\alpha\beta}(\omega_{cn}) -  
+    A_{ac}^{(\alpha)}A_{db}^{(\beta)} S_{\alpha\beta}(\omega_{ca}) + \\ & \delta_{ac}\sum_{n=1}^{\mathrm{dim}_\mathrm{S}} 
+    A_{dn}^{(\alpha)}A_{nb}^{(\beta)} S_{\alpha\beta}(\omega_{dn}) -  
+    A_{ac}^{(\alpha)}A_{db}^{(\beta)} S_{\alpha\beta}(\omega_{db})
+    \bigg\}.
+    \end{split}
+\end{equation}
+Here the spectral densities $S$ are
+\begin{equation}
+    \label{eq:BR_noise_power_spectra}
+    S_{\alpha\beta}(\omega) = \int_{-\infty}^{\infty} \dl{\tau} \ee^{\ii\omega t}\: \Tr\Big[B_\alpha(\tau)B_\beta(0)\rho_\mathrm{E}\Big],
+\end{equation}
+where $\rho\s{E}$ is the quantum state of the environment.
+
+% >>>
 % >>>
 
 \cleardoublepage
