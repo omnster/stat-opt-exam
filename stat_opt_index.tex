@@ -2,14 +2,19 @@
 % Preamble % <<<
 % \documentclass[10pt,twocolumn,nobalancelastpage,aps,pra,superscriptaddress,nofootinbib,longbibliography%,linenumbers
 % ]{revtex4-2}
-\documentclass[fontsize=9pt,bookmarkpackage=false]{scrartcl}
+\documentclass[fontsize=9pt,twoside=semi,bookmarkpackage=false]{scrartcl}
 
 % \usepackage{libertinus}
 \usepackage[a5paper,margin=10mm]{geometry}
 
+% Have empty pages on new sections
+% https://tex.stackexchange.com/a/85384/23298
+% \usepackage{etoolbox}
+% \pretocmd{\section}{\cleardoubleevenstandardpage}{}{}
+
 \usepackage[mainfont]{ysabeau}
-\usepackage[small,euler-digits,euler-hat-accent]{eulervm}
 \renewcommand{\hbar}{\hslash}
+\usepackage[small,euler-digits,euler-hat-accent]{eulervm}
 \usepackage{xfrac}
 \usepackage[mleftright]{diffcoeff}
 
@@ -26,6 +31,8 @@
 \usepackage{empheq}
 \definecolor{mygr}{rgb}{0,0,.9}
 \newcommand*{\mybx}[1]{\colorbox{mygr!15}{\hspace{1em}#1\hspace{1em}}}
+
+\newcommand{\proptoinverse}{\mathrel{\mskip1mu\reflectbox{$\propto$}\mskip-1mu}}
 
 \usepackage{appendix}
 
@@ -618,8 +625,8 @@ The scalar product of these two quantities will contribute to the coupling rate 
 Collecting together the parts of the atom-light Hamiltonian, we can finally write the full Hamiltonian:
 \begin{empheq}[box=\mybx]{equation}
   \hat H\s{A-L} =
-  \hbar \omega\s{cav} \hat a \dg \hat a 
-  + \frac 12 \hbar \omega_q \hat \sigma_z 
+  \hbar \omega\s{cav} \hat a \dg \hat a
+  + \frac 12 \hbar \omega_q \hat \sigma_z
   + \hbar g (\hat \sigma_+ +\hat \sigma_- ) ( \hat a + \hat a\dg ).
 \end{empheq}
 This Hamiltonian will be the starting point for the subsequent discussion.
@@ -761,7 +768,7 @@ The entries on the main diagonal in this basis are the eigenvalues.
 We can rewrite the Hamiltonian as
 \begin{multline}
   \label{eq:qubit:hamiltonian}
-  \hat H = 
+  \hat H =
   \begin{pmatrix}
     E_e & 0 \\ 0 & E_g
   \end{pmatrix}
