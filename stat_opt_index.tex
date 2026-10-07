@@ -185,7 +185,7 @@ This is quite expected, given that a coherent state is essentially a displaced g
 Therefore, the mean values of quadratures of a coherent state are defined by the coherent state label $\alpha$, and the second moments (variances) equal the ground state (shot-noise) variance.
 We summarize this by writing the statistical moments of a coherent state $\ket{\alpha}$:
 \begin{empheq}[box=\mybx]{align}
-  \mvec \mu_\alpha & = 2 ( \Re \alpha , \Im \alpha )^\intercal,
+  \mvec \mu_\alpha & = 2 ( \Re \alpha, \Im \alpha )^\intercal,
   &
   \mmat V _\alpha & =
   \begin{pmatrix}
@@ -293,7 +293,7 @@ Thermal state is Gaussian, with zero mean values of both quadratures and symmetr
 \end{empheq}
 We can write the Wigner function of this Gaussian state:
 \begin{empheq}[box=\mybx]{align}
-  W\s{th} (q ,p; m ) =
+  W\s{th} (q,p; m ) =
   \frac{ 1 }{ 2 \pi ( 2 m + 1 ) }
   \exp\left[ - \frac{ 1 }{ 2 }\cdot \frac{ q^2 + p^2 }{ 2 m + 1 } \right].
 \end{empheq}
@@ -430,7 +430,7 @@ where $H_n$ are Hermite polynomials.
 
 In quantum optics, the Wigner function is used often:
 \begin{empheq}[box=\mybx]{equation}
-  W_n (q , p ) = \frac{ ( -1 )^{-1} }{ 2 \pi }
+  W_n (q, p ) = \frac{ ( -1 )^{-1} }{ 2 \pi }
   \exp\left[ - \frac{ q^2 + p^2 }{ 2 } \right]
   L_n ( q^2 + p^2 ).
 \end{empheq}
@@ -489,7 +489,7 @@ The evolution of the state vector is given by the Schrödinger equation
 Its solution can be written as
 \begin{empheq}[box=\mybx]{equation}
   \label{eq:closed:shrodingerpic}
-  \ket{ \psi (t) } = \hat U (t , t_0) \ket{ \psi (0) },
+  \ket{ \psi (t) } = \hat U (t, t_0) \ket{ \psi (0) },
 \end{empheq}
 where $\hat U (t,t_0)$ is a \emph{unitary} operator (meaning $\hat U \hat U\dg = \hat 1$) that equals
 \begin{empheq}[box=\mybx]{equation}
@@ -506,7 +506,7 @@ Then we have
 \end{equation}
 where $\hat A\s{H}(t)$ defined as
 \begin{empheq}[box=\mybx]{equation}
-  \hat A\s{H} (t) = \hat U\dg (t , t_0) \hat A \hat U (t, t_0)
+  \hat A\s{H} (t) = \hat U\dg (t, t_0) \hat A \hat U (t, t_0)
 \end{empheq}
 is the operator in the \emph{Heisenberg picture}.
 At the initial time $t = t_0$, the operators in Heisenberg picture and Schrödinger picture coincide: $\hat A\s{H} (t_0) = \hat A$.
@@ -954,7 +954,7 @@ At this point I'm copying the text-book by Scully \& Zubairy ``Quantum Optics''.
 One important quantity is the \emph{inversion}, which equals the probability for the atom to be in the excited state minus the probability to be in the ground state, that is
 \begin{equation}
   W(t) = \abs{ c_e (t) }^2 - \abs{ c_g (t) }^2 =
-  \frac{ \delta^2 - \Omega\s{R}^2 }{ \Omega^2 } 
+  \frac{ \delta^2 - \Omega\s{R}^2 }{ \Omega^2 }
   \sin^2 \left( \frac{ \Omega t }{ 2 } \right) +
   \cos^2 \left( \frac{ \Omega t }{ 2 } \right).
 \end{equation}
@@ -1012,7 +1012,7 @@ Similarly,
 \end{align}
 Substituting this into the atom-light Hamiltonian, we obtain
 \begin{equation}
-  \hat H' = \hbar g 
+  \hat H' = \hbar g
   \left( \hat \sigma_+' \ee^{ \ii \omega_ q t } + \hat \sigma_-' \ee^{ - \ii \omega_q t } \right)
   \left( \hat a'{} \dg \ee^{ \ii \omega\s{cav} t } + \hat a' \ee^{ - \ii \omega\s{cav} t }  \right).
 \end{equation}
@@ -1067,7 +1067,7 @@ For example,
   \ii \hbar \left( \dots + \dot c_k^{(e)} \ket{ e, k }
   + \dot c_{k+1}^{(g)} \ket{ g , k + 1 } + \dots \right)
   =
-  \hbar g \left( 
+  \hbar g \left(
     \dots +
     c_k ^{(e)} \hat \sigma_- \hat a\dg \ket{ e , k }
     +
@@ -1078,7 +1078,7 @@ For example,
   \hbar g \left( \dots +
     c_k ^{(e)} \sqrt{ k + 1 } \ket{ g , k + 1 }
     +
-  c_{k+1}^{(g)} \sqrt{ k + 1 } \ket{ e , k } + \dots \right). 
+  c_{k+1}^{(g)} \sqrt{ k + 1 } \ket{ e , k } + \dots \right).
 \end{multline}
 It is possible to show that there will be no other terms proportional to $\ket{ e, k }$ and $\ket{ g , k + 1}$ in the Schrödinger equation.
 Therefore, for this pair of coefficients we have the equations
@@ -1105,7 +1105,7 @@ This is the classical equation of a harmonic oscillator, so we can immediately w
 \begin{empheq}[box=\mybx]{align}
   c_k^{(e)} (t) & = c_k ^{(e)} (0) \cos ( \lambda t  )- \ii c_{ k + 1}^{(g)} (0) \sin ( \lambda t  ),
   \\
-  c_{ k + 1 }^{(g)} (t) & = 
+  c_{ k + 1 }^{(g)} (t) & =
   c_{ k + 1 }^{(g)} (0) \cos ( \lambda t ) - \ii c_{k }^{(e)} (0) \sin( \lambda t ).
 \end{empheq}
 The solution shows that the levels $\ket{ e , k } \leftrightarrow \ket{ g , k + 1 }$ exchange the population at rate $\lambda$:
@@ -1146,7 +1146,7 @@ The usual approach to open quantum systems is as follows (see~\cref{fig:opensys}
 The system in consideration is extended to include not only the studied system itself (``System''), but also its environment (``Bath'') with which the system interacts in an attempt to get the solution for the compound system.
 Normally some assumptions are made about the environment and the type of the system-bath interaction to simplify the solutions.
 Afterwards, the environment is traced out to obtain the effective equations for the system of interest.
-This tracing out can involve e.g. taking the average over the bath variables or something similar, and depends on the approach.
+This tracing out can involve e.g.\ taking the average over the bath variables or something similar, and depends on the approach.
 
 The two common approaches to open systems are
 \begin{itemize}
@@ -1361,10 +1361,10 @@ The full expression is
 \begin{equation}
     \label{eq:BR_tensor}
     \begin{split}
-    R_{abcd} = -\frac{1}{2\hbar^2}\sum_{\alpha,\beta}\bigg\{ &\delta_{bd}\sum_{n=1}^{\mathrm{dim}_\mathrm{S}} 
-    A_{an}^{(\alpha)}A_{nc}^{(\beta)} S_{\alpha\beta}(\omega_{cn}) -  
-    A_{ac}^{(\alpha)}A_{db}^{(\beta)} S_{\alpha\beta}(\omega_{ca}) + \\ & \delta_{ac}\sum_{n=1}^{\mathrm{dim}_\mathrm{S}} 
-    A_{dn}^{(\alpha)}A_{nb}^{(\beta)} S_{\alpha\beta}(\omega_{dn}) -  
+    R_{abcd} = -\frac{1}{2\hbar^2}\sum_{\alpha,\beta}\bigg\{ &\delta_{bd}\sum_{n=1}^{\dim_\mathrm{S}}
+    A_{an}^{(\alpha)}A_{nc}^{(\beta)} S_{\alpha\beta}(\omega_{cn}) -
+    A_{ac}^{(\alpha)}A_{db}^{(\beta)} S_{\alpha\beta}(\omega_{ca}) + \\ & \delta_{ac}\sum_{n=1}^{\dim_\mathrm{S}}
+    A_{dn}^{(\alpha)}A_{nb}^{(\beta)} S_{\alpha\beta}(\omega_{dn}) -
     A_{ac}^{(\alpha)}A_{db}^{(\beta)} S_{\alpha\beta}(\omega_{db})
     \bigg\}.
     \end{split}
