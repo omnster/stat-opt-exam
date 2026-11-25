@@ -17,10 +17,12 @@
 \renewcommand{\hbar}{\hslash}
 \usepackage[small,euler-digits,euler-hat-accent]{eulervm}
 \usepackage{xfrac}
+\usepackage{datetime}
 \usepackage[mleftright]{diffcoeff}
 
-\input{/home/omn/works/styles/latex/revtex4-1.tex}
-\input{/home/omn/works/tmp/newcommands.tex}
+% Local style files (adjust paths as needed):
+\input{styles/latex/revtex4-1.tex}
+\input{tmp/newcommands.tex}
 
 \usetikzlibrary{external}
 \tikzexternalize[prefix=tikz/]
@@ -65,6 +67,28 @@
   \tableofcontents
 }
 
+\subsection*{Notation}% <<<
+\label{sec:notation}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Symbol & Meaning \\
+\midrule
+$\hat a,\hat a\dg$ & annihilation / creation operator of the harmonic oscillator \\
+$\alpha$ & complex amplitude of a coherent state $\ket{\alpha}$ \\
+$\ev{n},\bar n$ & mean photon (or phonon) occupation number \\
+$q,p$ & canonical quadratures, with $[q,p]=2i$ \\
+$\sigma_z,\sigma_+,\sigma_-$ & Pauli operators of a two-level atom \\
+$\delta$ & cavity--atom detuning, $\delta=\omega\s{cav}-\omega_q$ \\
+$\Omega\s{R}$ & on-resonance Rabi frequency, $\Omega\s{R}=2\epsilon$ \\
+$\Omega$ & generalized Rabi frequency, $\Omega=\sqrt{\delta^2+\Omega\s{R}^2}$ \\
+$\epsilon$ & atom--field coupling strength in the Rabi Hamiltonian \\
+$\gamma,\Gamma$ & decay rates (single-atom / collective) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
 \section{Coherent, thermal and non-classical states of light, their properties and mathematical representation}% <<<
 
 These states are quantum states of a harmonic oscillator (HO; see Appendices for more).
@@ -92,7 +116,7 @@ The probability to obtain $m$ photons in a coherent state $\alpha$ then equals
   =
   \ee^{ - \ev{n} } \frac{ \ev{n }^m }{ m! },
 \end{empheq}
-where we denoted by $\ev{n}$ the mean number of phonons in this coherent state.
+where we denoted by $\ev{n}$ the mean number of photons in this coherent state.
 Example photon number distributions can be seen in~\cref{fig:probs_coh_therm}~(left).
 It can be proven (we can compute it) that the mean number of photons and the variance of the photon number equal each other in the coherent state, because it follows Poisson distribution
 \begin{align}
@@ -225,9 +249,10 @@ In particular, for the wave function in the position basis we can write
 Lastly, different coherent states are not orthogonal
 \begin{equation}
   \braket{ \beta }{ \alpha }
-  = \exp\left[- \frac 12 (|\beta|^2+|\alpha|^2-2\beta^*\alpha)\right]\neq\delta(\alpha-\beta).
+  = \exp\left[- \frac 12 (|\beta|^2+|\alpha|^2-2\beta^*\alpha)\right]\neq 0
+  \qquad (\alpha \neq \beta).
 \end{equation}
-For orthogonal states, we'd have $\braket{ \alpha }{ \beta } = 0$ as long as $\alpha \neq \beta$.
+Coherent states are never orthogonal: the overlap is non-zero for any two distinct coherent states (it only vanishes in the limit $|\alpha-\beta|\to\infty$).
 
 % >>>
 \subsection{Non-classical states} % <<<
@@ -430,7 +455,7 @@ where $H_n$ are Hermite polynomials.
 
 In quantum optics, the Wigner function is used often:
 \begin{empheq}[box=\mybx]{equation}
-  W_n (q, p ) = \frac{ ( -1 )^{-1} }{ 2 \pi }
+  W_n (q, p ) = \frac{ ( -1 )^n }{ 2 \pi }
   \exp\left[ - \frac{ q^2 + p^2 }{ 2 } \right]
   L_n ( q^2 + p^2 ).
 \end{empheq}
@@ -639,7 +664,7 @@ This Hamiltonian will be the starting point for the subsequent discussion.
 
 The Rabi model assumes the light to be a classical field following a harmonic law with amplitude $\bar \varepsilon$:
 \begin{equation}
-   E(t) \propto ( \hat a + \hat a\dg ) = \bar \varepsilon \cos ( \omega\s{cav} t  ).
+   \hat a + \hat a\dg \longrightarrow \bar\varepsilon \cos \left( \omega\s{cav} t \right).
 \end{equation}
 The first term in $\hat H\s{A-L}$ (the light Hamiltonian) can be discarded: if the field is classical, this first term will become simply a complex number.
 In all quantum pictures it will commute with every operator and will thus not contribute to the equations of motion.
@@ -648,10 +673,11 @@ The Hamiltonian reads
 \begin{equation}
   \hat H\s{Rabi}
   = \frac{ 1 }{ 2 } \hbar \omega_q \hat \sigma_z
-  + \hbar g \bar \varepsilon ( \hat \sigma_+ + \hat \sigma_- ) \cos ( \omega\s{cav} t ).
+  + \hbar \epsilon ( \hat \sigma_+ + \hat \sigma_- ) \cos ( \omega\s{cav} t ).
 \end{equation}
+with the effective drive strength $\epsilon \equiv g\,\bar\varepsilon$.
 
-To solve the dynamics of the atom, we will first consider the case of no interaction: $g \bar \varepsilon = 0$.
+To solve the dynamics of the atom, we will first consider the case of no interaction: $\epsilon = 0$.
 The full Hamiltonian is simply $\hat H = \sfrac 12 \hbar \omega_q \hat \sigma_z$, and we can use the Schrödinger equation
 \begin{equation}
   \ii \hbar \diff{}{t } \ket{ \psi (t) } = \hat H \ket{ \psi (t) }
@@ -763,7 +789,7 @@ Now, we compute:
   c_e (t) \ee^{ - \ii \omega_q t / 2 } \ket{ g }
   \right].
 \end{gather}
-In the last line, we skipped $\cos( \omega\s{cav} t )$ on both sides for brevity.
+The fast-oscillating terms have already been discarded by the rotating-wave approximation.
 
 Now, collecting everything together, we note that the terms with $c_{e,g}$ in~\cref{eq:rabi:lhs,eq:rabi:own} cancel each other.
 The Schrödinger equation then reads
@@ -803,6 +829,9 @@ Now, as previously, we collect the terms at $\ket{ e}$ and $\ket{ g }$, which gi
   & =
   - \ii \epsilon \cos ( \omega\s{cav} t ) c_e (t) \ee^{ - \ii\omega_q t }.
 \end{align}
+\begin{equation}
+  \delta \equiv \omega\s{cav} - \omega_q .
+\end{equation}
 At this point, we expand the cosine as $\cos x = ( \ee^{ \ii x } + \ee^{ - \ii x } ) / 2 $, and rewrite the equations as
 \begin{align}
   \label{eq:rabi:cedot}
@@ -828,7 +857,7 @@ At this point, we expand the cosine as $\cos x = ( \ee^{ \ii x } + \ee^{ - \ii x
   - \ii \epsilon c_e (t) \ee^{ \ii \delta t }
   ,
 \end{align}
-where we introduced the detuning $\delta = \omega\s{cav} - \omega_q$, and used the so-called \emph{Rotating wave approximation (RWA)} to write the approximate expressions on the right-hand side.
+where we used the so-called \emph{Rotating wave approximation (RWA)} to write the approximate expressions on the right-hand side.
 For the approximation, we ignore the fast terms $\propto \ee^{ \ii ( \omega\s{cav} + \omega_q ) t }$  and keep only the slow terms $\propto \ee^{ \ii ( \omega\s{cav} - \omega_q ) t }$.
 
 For the further simplification, we want to get rid of the explicit time dependence in the equations, so we guess the substitution
@@ -842,7 +871,7 @@ From this follows
 \begin{align}
   \dot c_e (t) & = ( \dot a (t) - \ii \delta a(t) / 2 ) \ee^{ - \ii \delta t / 2 },
   &
-  \dot c_g (t) & = ( \dot b (t) + \ii \delta b(t) / 2 ) \ee^{ - \ii \delta t / 2 }.
+  \dot c_g (t) & = ( \dot b (t) + \ii \delta b(t) / 2 ) \ee^{ + \ii \delta t / 2 }.
 \end{align}
 Substituting these into the previous equations:
 \begin{align}
@@ -943,11 +972,11 @@ Then,
 \end{align}
 The coefficients $a_{1,2}$ and $b_{1,2}$ are determined from the initial conditions:
 \begin{align}
-  a_1 & = \frac{ 1 }{ 2 \Omega } [ ( \Omega + \delta ) c_e (0) + \Omega\s{R} c_g (0) ], &
-  a_2 & = \frac{ 1 }{ 2 \Omega } [ ( \Omega - \delta ) c_e (0) - \Omega\s{R} c_g (0) ],
+  a_1 & = \frac{ 1 }{ 2 \Omega } [ ( \Omega + \delta ) c_e (0) - \Omega\s{R} c_g (0) ], &
+  a_2 & = \frac{ 1 }{ 2 \Omega } [ ( \Omega - \delta ) c_e (0) + \Omega\s{R} c_g (0) ],
   \\
-  b_1 & = \frac{ 1 }{ 2 \Omega } [ ( \Omega - \delta ) c_g (0) + \Omega\s{R} c_e (0) ], &
-  b_2 & = \frac{ 1 }{ 2 \Omega } [ ( \Omega + \delta ) c_g (0) - \Omega\s{R} c_e (0) ].
+  b_1 & = \frac{ 1 }{ 2 \Omega } [ ( \Omega - \delta ) c_g (0) - \Omega\s{R} c_e (0) ], &
+  b_2 & = \frac{ 1 }{ 2 \Omega } [ ( \Omega + \delta ) c_g (0) + \Omega\s{R} c_e (0) ].
 \end{align}
 At this point I'm copying the text-book by Scully \& Zubairy ``Quantum Optics''.
 
@@ -1061,7 +1090,7 @@ To solve the dynamics of the system, it is natural to expand the wave-function i
   \left[ c_k^{(e)} (t) \ket{ e , k } + c_k^{(g)} (t) \ket{ g , k } \right],
 \end{equation}
 and substitute it into the Schrödinger equation, as we did for the Rabi model.
-This time, there are many more coefficients $c$, however, due to the structure of the possible transitions $\ket{ e, n} \leftrightarrow \ket{ g , n + 1 }$, the equations for different coefficients will be split into uncoupled pairs of coupled equations.
+This time, there are many more coefficients $c$, however, due to the structure of the possible transitions $\ket{ e, n} \leftrightarrow \ket{ g , n + 1 }$, the equations for different coefficients will split into independent two-dimensional blocks (pairs $\ket{e,k}\leftrightarrow\ket{g,k+1}$).
 For example,
 \begin{multline}
   \ii \hbar \left( \dots + \dot c_k^{(e)} \ket{ e, k }
@@ -1216,14 +1245,14 @@ Now, we can formally solve the equation for $\hat b_\Omega (t)$:
 \begin{equation}
   \hat b_\Omega (t) = \hat b_\Omega (0) \ee^{ - \ii \Omega t }
   + \ii \kappa ( \Omega )
-  \int_0^t \dl{s} \: e^{ - \ii \Omega t } \hat a (s),
+  \int_0^t \dl{s} \: e^{ - \ii \Omega ( t - s ) } \hat a (s),
 \end{equation}
 and substitute the solution into the equation for $\dot a$:
 \begin{equation}
-  \dot{ \hat a } (t) = - \ii \omega a (t)
+  \dot{ \hat a } (t) = - \ii \omega \hat a (t)
   +
   \ii \int_B \dl{ \Omega } \: \kappa ( \Omega ) \hat b_\Omega (0) \ee^{ - \ii \Omega t }
-  - \int_ B \dl{ \Omega } \: \kappa^2 ( \Omega ) \int_0^t \dl{ s } \: \ee^{ - \ii \Omega t } \hat a (s).
+  - \int_ B \dl{ \Omega } \: \kappa^2 ( \Omega ) \int_0^t \dl{ s } \: \ee^{ - \ii \Omega ( t - s ) } \hat a (s).
 \end{equation}
 The important thing to understand about this equation, is that in the right-hand side there are the forces that are acting on the oscillator at the time $t$.
 The first term describes the usual restoring force that is present without the dissipation.
@@ -1235,7 +1264,7 @@ This last term represents the \emph{memory of the bath}.
 It is quite typical in quantum optics to do the \emph{first Markov approximation}, which assumes that the bath has no memory.
 Then, the kernel of the last integral becomes a delta-function, and the force from the bath becomes proportional to the instantaneous value of the system operator:
 \begin{equation}
-  - \int_ B \dl{ \Omega } \: \kappa^2 ( \Omega ) \int_0^t \dl{ s } \: \ee^{ - \ii \Omega t } \hat a (s)
+  - \int_ B \dl{ \Omega } \: \kappa^2 ( \Omega ) \int_0^t \dl{ s } \: \ee^{ - \ii \Omega ( t - s ) } \hat a (s)
   \mapsto - \Gamma \hat a (t).
 \end{equation}
 The first Markov approximation also involves setting $\kappa(\Omega)$ to be independent of frequency $\kappa^2 (\Omega ) = 2 \Gamma$.
@@ -1277,7 +1306,7 @@ We write the von Neumann equation for the density matrix
 The equation of motion for the density matrix of the system  $\hat \rho (t)$ reads
 \begin{empheq}[box=\mybx]{equation}
   \dot{ \hat \rho} (t) =
-  - \frac{ \ii }{ \hbar } \comm{ \hat H\s{Sys} }{ \rho (t) }
+  - \frac{ \ii }{ \hbar } \comm{ \hat H\s{Sys} }{ \hat \rho (t) }
   +
   \sum_n
   \frac 12
@@ -1313,11 +1342,11 @@ In particular, for the light fields at room temperature, $m \approx 0$, and only
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.49\linewidth]{./fig/dephasing.png}
+  \includegraphics[width=0.49\linewidth]{dephasing.png}
   \caption{Illustration of dephasing of a qubit.
-    Two trajectories start on the surface of the Bloch sphere and evolve towards the axis $z = 0$.
+    Two trajectories start on the surface of the Bloch sphere and evolve towards the $z$-axis (the transverse components decay while $z$ is preserved).
   Note that since the collapse operator is $\sigma_z$, the $z$ component of the spin is unchanged. }
-  \label{fig:-fig-dephasing-png}
+  \label{fig:dephasing}
 \end{figure}
 
 For two-level systems (qubits), the primary channels of decoherence, are dephasing and relaxation.
@@ -1372,7 +1401,7 @@ The full expression is
 Here the spectral densities $S$ are
 \begin{equation}
     \label{eq:BR_noise_power_spectra}
-    S_{\alpha\beta}(\omega) = \int_{-\infty}^{\infty} \dl{\tau} \ee^{\ii\omega t}\: \Tr\Big[B_\alpha(\tau)B_\beta(0)\rho_\mathrm{E}\Big],
+    S_{\alpha\beta}(\omega) = \int_{-\infty}^{\infty} \dl{\tau} \ee^{\ii\omega\tau}\: \Tr\Big[B_\alpha(\tau)B_\beta(0)\rho_\mathrm{E}\Big],
 \end{equation}
 where $\rho\s{E}$ is the quantum state of the environment.
 
@@ -1483,7 +1512,7 @@ We can rewrite the Hamiltonian as
   \end{pmatrix}
   =
   \begin{pmatrix}
-    \frac 12 \left[ E_e - E_g \right] + \frac 12 \left[ E_e + E_g \right]a & 0
+    \frac 12 \left[ E_e - E_g \right] + \frac 12 \left[ E_e + E_g \right] & 0
     \\
     0 &
     \frac 12  \left[ E_g - E_e \right] + \frac 12 \left[ E_g + E_e \right]
@@ -1519,5 +1548,5 @@ where we define  the transition frequency between the two levels as $\omega_q = 
 
 % >>>
 
-% \bibliography{/home/omn/works/refs}
+% \bibliography{refs}
 \end{document}
